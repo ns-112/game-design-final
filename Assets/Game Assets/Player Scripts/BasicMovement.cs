@@ -40,7 +40,7 @@ public class BasicMovement : MonoBehaviour
         float s = switch_player.ReadValue<float>();
 
 
-        Vector2 move = new Vector2(x, rb.position.y);
-        rb.linearVelocity = move * moveSpeed;
+        Vector2 move = new Vector2(x, 0);
+        rb.linearVelocity = new(move.x * moveSpeed, rb.linearVelocityY);
     }
 }
