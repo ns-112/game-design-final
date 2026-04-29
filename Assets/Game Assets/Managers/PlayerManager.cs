@@ -8,6 +8,12 @@ public enum PlayerType
     Player2
 }
 
+public enum SideType
+{
+    Left,
+    Right
+}
+
 public class Player
 {
     public PlayerType playerType;
@@ -15,6 +21,9 @@ public class Player
     public bool canJump = true;
     public bool canDoubleJump = true;
     public bool characterActive = true;
+
+    public bool wallLeft = false;
+    public bool wallRight = false;
 
     public Player(PlayerType type)
     {
@@ -27,6 +36,20 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance { get; private set; }
 
     public Dictionary<PlayerType, Player> Players = new Dictionary<PlayerType, Player>();
+    public PlayerType ActivePlayer = PlayerType.Player1;
+
+
+
+    public InputActionAsset inputActions;
+
+    public InputAction left_right;
+    public InputAction jump;
+    public InputAction crouch;
+    public InputAction interact;
+    public InputAction switch_player;
+
+
+    public Camera GameCamera;
 
     
 
@@ -41,20 +64,35 @@ public class PlayerManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            var actionMap = inputActions.FindActionMap("Player1");
+            left_right = actionMap.FindAction("LeftRight");
+            jump = actionMap.FindAction("Jump");
+            crouch = actionMap.FindAction("Crouch");
+            interact = actionMap.FindAction("Interact");
+            switch_player = actionMap.FindAction("SwitchCharacter");
+
+            actionMap.Enable();
         }
     }
 
+    void SwapPlayers()
+    {
+        if (ActivePlayer == PlayerType.Player1)
+        {
+            ActivePlayer = PlayerType.Player2;
+        } else
+        {
+            ActivePlayer = PlayerType.Player1;
+        }
+    }
+    
+
     void Update()
     {
-        if (Players[PlayerType.Player1] != null)
+        if (switch_player.WasPressedThisFrame())
         {
-            Debug.Log(string.Format("player 1: can jump: {0} can djump: {1}", Players[PlayerType.Player1].canJump, Players[PlayerType.Player1].canDoubleJump));
+            SwapPlayers();
         }
-        /*
-        if (Players[PlayerType.Player2] != null)
-        {
-            Debug.Log(string.Format("player 2: can jump: {0} can djump: {1}", Players[PlayerType.Player2].canJump, Players[PlayerType.Player2].canDoubleJump));
-        }
-        */
     }
 }

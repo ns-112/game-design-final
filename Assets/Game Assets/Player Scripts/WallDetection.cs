@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerBottomHB : MonoBehaviour
+public class WallDetection : MonoBehaviour
 {
     private Player parentPlayer;
+    public SideType type = SideType.Left;
 
     IEnumerator Start()
     {
@@ -22,12 +22,30 @@ public class PlayerBottomHB : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        parentPlayer.canJump = true;
-        parentPlayer.canDoubleJump = true;
+        switch (type)
+        {
+            case SideType.Left:
+            parentPlayer.wallLeft = true;
+            break;
+
+            case SideType.Right:
+            parentPlayer.wallRight = true;
+            break;
+        }
+        
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        parentPlayer.canJump = false;
+        switch (type)
+        {
+            case SideType.Left:
+            parentPlayer.wallLeft = false;
+            break;
+
+            case SideType.Right:
+            parentPlayer.wallRight = false;
+            break;
+        }
     }
 }
