@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CameraSmoothFollow : MonoBehaviour
 {
-
     void FixedUpdate()
     {
         Vector3 target = PlayerManager.Instance.Players[PlayerManager.Instance.ActivePlayer].gameObject.transform.position;

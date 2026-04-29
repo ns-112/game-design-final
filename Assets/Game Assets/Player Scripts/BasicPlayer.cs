@@ -10,6 +10,8 @@ public class BasicPlayer : MonoBehaviour
     public PlayerType playerType;
     private Player self;
 
+    
+
 
 
 
@@ -32,6 +34,7 @@ public class BasicPlayer : MonoBehaviour
     void Start()
     {
         PlayerManager.Instance.Players[playerType] = self;
+        rb.mass = self.properties.weight / 2;
     }
 
     void OnJump()
@@ -40,13 +43,13 @@ public class BasicPlayer : MonoBehaviour
         {
             self.canJump = false;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
         }   
-        else if (self.canDoubleJump)
+        else if (self.canDoubleJump && self.properties.canDoubleJump)
         {
             self.canDoubleJump = false;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
         }
             
     }
@@ -72,7 +75,7 @@ public class BasicPlayer : MonoBehaviour
             }
 
             Vector2 move = new Vector2(x, 0);
-            rb.linearVelocity = new(move.x * moveSpeed, rb.linearVelocity.y);
+            rb.linearVelocity = new(move.x * self.properties.moveSpeed, rb.linearVelocity.y);
         }
         
     }

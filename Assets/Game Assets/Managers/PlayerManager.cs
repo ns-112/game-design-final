@@ -14,9 +14,22 @@ public enum SideType
     Right
 }
 
+public struct PlayerProperties
+{
+    public float moveSpeed;
+    public float jumpHeight;
+    public float weight;
+
+    public bool canDoubleJump;
+    public bool canWallClimb;
+
+    public float strength;
+}
+
 public class Player
 {
     public PlayerType playerType;
+    public PlayerProperties properties;
     public GameObject gameObject;
     public bool canJump = true;
     public bool canDoubleJump = true;
@@ -28,6 +41,30 @@ public class Player
     public Player(PlayerType type)
     {
         playerType = type;
+        switch (type)
+        {
+            //Heavy
+            case PlayerType.Player1:
+            properties.canDoubleJump = false;
+            properties.canWallClimb = false;
+
+            properties.moveSpeed = 4.0f;
+            properties.jumpHeight = 4.0f;
+            properties.weight = 0.8f;
+            properties.strength = 5.0f;
+            break;
+
+            //Light
+            case PlayerType.Player2:
+            properties.canDoubleJump = true;
+            properties.canWallClimb = true;
+
+            properties.moveSpeed = 9.0f;
+            properties.jumpHeight = 2.2f;
+            properties.weight = 0.3f;
+            properties.strength = 1.0f;
+            break;
+        }
     }
 }
 
