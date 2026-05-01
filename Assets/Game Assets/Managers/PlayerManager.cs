@@ -26,11 +26,19 @@ public struct PlayerProperties
     public float strength;
 }
 
+public struct LevelOptions
+{
+    public bool P1Locked;
+    public bool P2Locked;
+    
+}
+
 public class Player
 {
     public PlayerType playerType;
     public PlayerProperties properties;
     public GameObject gameObject;
+    
     public bool canJump = true;
     public bool canDoubleJump = true;
     public bool characterActive = true;
@@ -49,8 +57,8 @@ public class Player
             properties.canWallClimb = false;
 
             properties.moveSpeed = 4.0f;
-            properties.jumpHeight = 4.0f;
-            properties.weight = 0.8f;
+            properties.jumpHeight = 4.1f;
+            properties.weight = 0.7f;
             properties.strength = 5.0f;
             break;
 
@@ -87,7 +95,11 @@ public class PlayerManager : MonoBehaviour
 
 
     public Camera GameCamera;
-
+    public LevelOptions levelOptions = new LevelOptions
+    {
+        P1Locked = false,
+        P2Locked = false
+    };
     
 
 

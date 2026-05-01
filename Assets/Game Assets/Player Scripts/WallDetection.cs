@@ -22,16 +22,20 @@ public class WallDetection : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (type)
+        if (parentPlayer != null)
         {
-            case SideType.Left:
-            parentPlayer.wallLeft = true;
-            break;
+            switch (type)
+            {
+                case SideType.Left:
+                parentPlayer.wallLeft = true;
+                break;
 
-            case SideType.Right:
-            parentPlayer.wallRight = true;
-            break;
+                case SideType.Right:
+                parentPlayer.wallRight = true;
+                break;
+            }
         }
+        
         
     }
 
