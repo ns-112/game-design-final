@@ -3,6 +3,7 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 
 //Contains data for the currently loaded level, like timers
@@ -19,6 +20,12 @@ public class GameLevelManager : MonoBehaviour
     Dictionary<int, TileBase> indexToTile;
 
 
+
+
+
+
+
+
     private Tilemap staticMap;
     private Tilemap interactableMap;
     private Tilemap switchMap;
@@ -33,6 +40,13 @@ public class GameLevelManager : MonoBehaviour
 
 
     public GameObject bg1Gameobject;
+
+
+
+    public GameObject Player1;
+    public GameObject Player2;
+    public GameObject Camera;
+
 
 
 
@@ -59,7 +73,7 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
-    void LoadAllLevelsFromFolder()
+    public void LoadAllLevelsFromFolder()
     {
         LevelDict = new Dictionary<string, GameLevel>();
 
@@ -164,6 +178,14 @@ public class GameLevelManager : MonoBehaviour
             switchMap = switchesObjectsGameobject.GetComponent<Tilemap>();
             SaveTilemap(switchMap, level.Switches);
         }
+
+        level.StartData.P1Start = new Vector2(Player1.transform.position.x, Player1.transform.position.y);
+        level.StartData.P2Start = new Vector2(Player2.transform.position.x, Player2.transform.position.y);
+
+        level.StartData.P1Active = currentLevel.StartData.P1Active;
+        level.StartData.P2Active = currentLevel.StartData.P2Active;
+
+        level.StartData.CameraStart = currentLevel.StartData.CameraStart;
         
         string json = level.SerializeLevel();
 
@@ -200,6 +222,24 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
+    public void NewGameLevel(string name)
+    {
+        CacheTilemaps();
+
+        currentLevel = new GameLevel(name);
+
+        
+        if (staticMap != null) staticMap.ClearAllTiles();
+        if (interactableMap != null) interactableMap.ClearAllTiles();
+        if (switchMap != null) switchMap.ClearAllTiles();
+        if (bg1Map != null) bg1Map.ClearAllTiles();
+
+       
+        Player1.transform.position = new Vector3(-5, 0, 0);
+        Player2.transform.position = new Vector3(5, 0, 0);
+        Camera.transform.position = Player1.transform.position;
+    }
+
     public void LoadGameLevel(string levelName)
     {
         CacheTilemaps();
@@ -222,6 +262,29 @@ public class GameLevelManager : MonoBehaviour
 
         LoadTilemap(bg1Map, found.BG1);
 
+        Player1.transform.position = new Vector3(found.StartData.P1Start.x, found.StartData.P1Start.y, 0);
+        Player2.transform.position = new Vector3(found.StartData.P2Start.x, found.StartData.P2Start.y, 0);
+        
+        
+        switch (found.StartData.CameraStart)
+        {
+            case Players.Player1:
+            Camera.transform.position = Player1.transform.position;
+            break;
+
+            case Players.Player2:
+            Camera.transform.position = Player2.transform.position;
+            break;
+        }
+
+        #if !UNITY_EDITOR
+            PlayerManager.Instance.levelOptions = new LevelOptions
+            {
+                P1Locked = !found.StartData.P1Active,
+                P2Locked = !found.StartData.P2Active
+            };
+        #endif
+
         Debug.Log("Loaded level: " + levelName);
     }
 
@@ -235,22 +298,62 @@ public class GameLevelManager : MonoBehaviour
 [CustomEditor(typeof(GameLevelManager))]
 public class GameLevelManagerEditor : Editor
 {
+
+    private string saveName = "";
+    private int selectedIndex = 0;
+    private string[] levelNames = new string[0];
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
         GameLevelManager manager = (GameLevelManager)target;
 
+        manager.LoadAllLevelsFromFolder(); // refresh list
+
+        levelNames = new List<string>(manager.LevelDict.Keys).ToArray();
+
+        if (levelNames.Length > 0)
+        {
+            selectedIndex = Mathf.Clamp(selectedIndex, 0, levelNames.Length - 1);
+        }
+
+        GUILayout.Label("Load Existing Level:");
+
+        if (levelNames.Length > 0)
+        {
+            selectedIndex = EditorGUILayout.Popup(selectedIndex, levelNames);
+
+            if (GUILayout.Button("Load Selected"))
+            {
+                manager.LoadGameLevel(levelNames[selectedIndex]);
+            }
+        }
+        else
+        {
+            GUILayout.Label("No levels found.");
+        }
+
         GUILayout.Space(10);
 
-        if (GUILayout.Button("save"))
+        if (GUILayout.Button("New Level"))
         {
-            manager.SaveOpenLevelAsNewGameLevel();
+            manager.NewGameLevel("UNSAVED"); // temporary name
         }
 
-        if (GUILayout.Button("load"))
-        {
-            manager.LoadGameLevel(manager.currentLevel != null ? manager.currentLevel.name : "");
-        }
+        GUILayout.Space(10);
+
+    GUILayout.Label("Save Level As:");
+
+    saveName = GUILayout.TextField(saveName);
+
+    GUI.enabled = !string.IsNullOrWhiteSpace(saveName);
+
+    if (GUILayout.Button("Save"))
+    {
+        manager.currentLevel.name = saveName;
+        manager.SaveOpenLevelAsNewGameLevel();
+    }
+
+    GUI.enabled = true;
     }
 }

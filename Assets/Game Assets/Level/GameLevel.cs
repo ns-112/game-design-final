@@ -3,6 +3,13 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [System.Serializable]
+public enum Players
+{
+    Player1,
+    Player2,
+}
+
+[System.Serializable]
 public enum ObjectType
 {
     Static,
@@ -22,10 +29,25 @@ public class TileData
     public Vector2Int position;
 }
 
+[System.Serializable]
+public class LevelStartData
+{
+    public Vector2 P1Start;
+    public Vector2 P2Start;
+
+    public bool P1Active;
+    public bool P2Active;
+
+    //Which player to start the camera on
+    public Players CameraStart;
+}
 
 [System.Serializable]
 public class GameLevel
 {
+    public LevelStartData StartData = new();
+
+    
     public List<TileData> StaticObjects = new();
     public List<TileData> InteractableProps = new();
     public List<TileData> Switches = new();
@@ -34,9 +56,10 @@ public class GameLevel
 
     public List<TileData> BG1 = new();
 
+
     
 
-    public TileData GoalItem;
+    public TileData GoalItem = new();
 
     public string name;
 
