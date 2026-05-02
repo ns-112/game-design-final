@@ -20,15 +20,20 @@ public class GameLevelManager : MonoBehaviour
 
 
     private Tilemap staticMap;
-    private Tilemap dynamicMap;
     private Tilemap interactableMap;
     private Tilemap switchMap;
 
 
+    private Tilemap bg1Map;
+
+
     public GameObject staticObjectsGameobject;
-    public GameObject dynamicObjectsGameobject;
     public GameObject interactableObjectsGameobject;
     public GameObject switchesObjectsGameobject;
+
+
+    public GameObject bg1Gameobject;
+
 
 
 
@@ -115,6 +120,21 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
+    void CacheTilemaps()
+    {
+        if (staticObjectsGameobject != null)
+            staticMap = staticObjectsGameobject.GetComponent<Tilemap>();
+
+        if (bg1Gameobject != null)
+            bg1Map = bg1Gameobject.GetComponent<Tilemap>();
+
+        if (interactableObjectsGameobject != null)
+            interactableMap = interactableObjectsGameobject.GetComponent<Tilemap>();
+
+        if (switchesObjectsGameobject != null)
+            switchMap = switchesObjectsGameobject.GetComponent<Tilemap>();
+    }
+
     public void SaveOpenLevelAsNewGameLevel()
     {
         string name = currentLevel != null ? currentLevel.name : "NewLevel";
@@ -129,10 +149,10 @@ public class GameLevelManager : MonoBehaviour
             staticMap = staticObjectsGameobject.GetComponent<Tilemap>();
             SaveTilemap(staticMap, level.StaticObjects);
         }
-        if (dynamicObjectsGameobject != null)
+        if (bg1Gameobject != null)
         {    
-            dynamicMap = dynamicObjectsGameobject.GetComponent<Tilemap>();
-            SaveTilemap(dynamicMap, level.DynamicProps);
+            bg1Map = bg1Gameobject.GetComponent<Tilemap>();
+            SaveTilemap(bg1Map, level.BG1);
         }
         if (interactableObjectsGameobject != null)
         {
@@ -150,7 +170,7 @@ public class GameLevelManager : MonoBehaviour
         string folder = Path.Combine(Application.dataPath, "Game Assets/Level/Levels");
         Directory.CreateDirectory(folder);
 
-        string path = Path.Combine(folder, "level_" + name + ".json");
+        string path = Path.Combine(folder, name + ".json");
 
         File.WriteAllText(path, json);
         Debug.Log("Saved level: " + path);
@@ -182,7 +202,9 @@ public class GameLevelManager : MonoBehaviour
 
     public void LoadGameLevel(string levelName)
     {
+        CacheTilemaps();
         RefilTileDicts();
+        LoadAllLevelsFromFolder();
         if (!LevelDict.TryGetValue(levelName, out GameLevel found))
         {
             Debug.LogWarning("Level not found: " + levelName);
@@ -190,17 +212,15 @@ public class GameLevelManager : MonoBehaviour
         }
 
         currentLevel = found;
-
-        staticMap.ClearAllTiles();
-        dynamicMap.ClearAllTiles();
-        interactableMap.ClearAllTiles();
-        switchMap.ClearAllTiles();
+        
 
     
-        LoadTilemap(staticMap, found.StaticObjects);
-        LoadTilemap(dynamicMap, found.DynamicProps);
+        LoadTilemap(staticMap, found.StaticObjects);  
         LoadTilemap(interactableMap, found.InteractableProps);
         LoadTilemap(switchMap, found.Switches);
+
+
+        LoadTilemap(bg1Map, found.BG1);
 
         Debug.Log("Loaded level: " + levelName);
     }

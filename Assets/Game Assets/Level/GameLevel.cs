@@ -6,10 +6,12 @@ using UnityEngine.Tilemaps;
 public enum ObjectType
 {
     Static,
-    Dynamic,
     Interactable,
     Switches,
-    Goal
+    Goal,
+
+
+    BG1
 }
 
 
@@ -25,9 +27,12 @@ public class TileData
 public class GameLevel
 {
     public List<TileData> StaticObjects = new();
-    public List<TileData> DynamicProps = new();
     public List<TileData> InteractableProps = new();
     public List<TileData> Switches = new();
+
+
+
+    public List<TileData> BG1 = new();
 
     
 

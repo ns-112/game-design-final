@@ -21,10 +21,6 @@ public class GameLevelUtils
                 level.StaticObjects.Add(data);
                 break;
 
-            case ObjectType.Dynamic:
-                level.DynamicProps.Add(data);
-                break;
-
             case ObjectType.Interactable:
                 level.InteractableProps.Add(data);
                 break;
@@ -35,6 +31,13 @@ public class GameLevelUtils
 
             case ObjectType.Goal:
                 level.GoalItem = data;
+                break;
+
+
+
+
+            case ObjectType.BG1:
+                level.BG1.Add(data);
                 break;
         }
     }
