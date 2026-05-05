@@ -24,7 +24,7 @@ public class EscapeZone : MonoBehaviour
   // called when the player escapes with the target item
   void LevelComplete()
   {
-    // add level completion sequence into this 
-    Debug.Log("Level Complete");
+    MoneySystem.Instance.LevelComplete();
+    Debug.Log("Level Complete!");
   }
 }
