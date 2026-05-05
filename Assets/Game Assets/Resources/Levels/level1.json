@@ -9,8 +9,8 @@
             "y": -0.1899999976158142
         },
         "P1Active": false,
-        "P2Active": false,
-        "CameraStart": 0
+        "P2Active": true,
+        "CameraStart": 1
     },
     "LevelSets": [
         {
@@ -811,6 +811,17 @@
             },
             "zLayer": 0,
             "rotation": 39.59999084472656,
+            "Arguments": []
+        },
+        {
+            "prefabIndex": 1,
+            "prefabName": "TestEnemy",
+            "position": {
+                "x": 1.9020099639892579,
+                "y": 0.0
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
             "Arguments": []
         }
     ],

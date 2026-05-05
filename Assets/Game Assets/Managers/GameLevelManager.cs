@@ -337,7 +337,7 @@ public class GameLevelManager : MonoBehaviour
             }
         }
 
-
+        currentLevel.StartData.CameraStart = Players.Player1;
        
         Player1.transform.position = new Vector3(-5, 0, 0);
         Player2.transform.position = new Vector3(5, 0, 0);
@@ -362,16 +362,20 @@ public class GameLevelManager : MonoBehaviour
             LoadTilemap(tm.tilemap, tm.type);
         }
 
-        if (PrefabContainer.transform.childCount > 0)
+        var children = new List<GameObject>();
+
+        foreach (Transform child in PrefabContainer.transform)
         {
-            foreach (Transform child in PrefabContainer.transform)
-            {
-                #if !UNITY_EDITOR
-                    Destroy(child.gameObject);
-                #else
-                    DestroyImmediate(child.gameObject);
-                #endif
-            }
+            children.Add(child.gameObject);
+        }
+
+        foreach (var go in children)
+        {
+            #if !UNITY_EDITOR
+                Destroy(go);
+            #else
+                DestroyImmediate(go);
+            #endif
         }
         LoadPrefabs();
 

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public enum PrefabParentType
 {
-    Test
+    Test,
+    TestEnemy
 }
 
 
@@ -25,4 +26,18 @@ public class PrefabsParent : MonoBehaviour
             prefabs.Add(transform.GetChild(i).gameObject);
         }
     }
+}
+
+
+[CreateAssetMenu(menuName = "Prefabs/Prefab Type Database")]
+public class PrefabTypeDatabase : ScriptableObject
+{
+    public List<PrefabTypeEntry> types;
+}
+
+[System.Serializable]
+public class PrefabTypeEntry
+{
+    public string id;
+    public GameObject prefab;
 }
