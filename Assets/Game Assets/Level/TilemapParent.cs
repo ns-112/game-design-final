@@ -6,12 +6,12 @@ using UnityEngine.Tilemaps;
 public class TilemapEntry
 {
     public Tilemap tilemap;
-    public ObjectType type;
+    public TilemapType type;
 }
 
 public class TilemapParent : MonoBehaviour
 {
-    public List<TilemapEntry> tilemaps;
+    public List<TilemapEntry> tilemaps = new List<TilemapEntry>();
 
     public void RefreshTilemaps()
     {
@@ -21,12 +21,12 @@ public class TilemapParent : MonoBehaviour
         }
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).TryGetComponent(out TilemapIdentifier tid))
+            if (transform.GetChild(i).TryGetComponent(out LevelTypeID ID))
             {
                 tilemaps.Add(new TilemapEntry
                 {
                     tilemap = transform.GetChild(i).GetComponent<Tilemap>(),
-                    type = tid.identifier
+                    type = ID.t_id
                 });
             }
         }

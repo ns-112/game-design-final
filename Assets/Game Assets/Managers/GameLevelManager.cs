@@ -16,11 +16,14 @@ public class GameLevelManager : MonoBehaviour
     public GameLevel currentLevel; //NOT for creating new levels
 
     public TileBase[] tileLookup;
+    public GameObject[] prefabLookup;
 
     Dictionary<TileBase, int> tileToIndex;
     Dictionary<int, TileBase> indexToTile;
 
 
+    Dictionary<PrefabParentType, int> prefabToIndex;
+    Dictionary<int, GameObject> indexToPrefab;
 
 
 
@@ -57,6 +60,7 @@ public class GameLevelManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             RefilTileDicts();
+            RefilPrefabDicts();
             LoadAllLevelsFromFolder();
 
             
@@ -67,7 +71,7 @@ public class GameLevelManager : MonoBehaviour
     {
         LevelDict = new Dictionary<string, GameLevel>();
 
-        string path = Path.Combine(Application.dataPath, "Game Assets/Level/Levels");
+        string path = Path.Combine(Application.dataPath, "Game Assets/Resources/Levels");
 
         if (!Directory.Exists(path))
         {
@@ -111,34 +115,46 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
-    void SaveTilemap(Tilemap map, ObjectType type)
+    void SaveTilemap(Tilemap map, TilemapType type)
     {
         if (currentLevel.LevelSets == null)
-        {
             currentLevel.LevelSets = new List<LevelData>();
+
+        // remove old entry
+        currentLevel.LevelSets.RemoveAll(x => x.type == type);
+
+        LevelData newData = new LevelData
+        {
+            type = type,
+            tiles = new List<TileData>()
+        };
+
+        AddTilesToMapList(newData.tiles, map);
+
+        currentLevel.LevelSets.Add(newData);
+    }
+
+    void SavePrefab(GameObject prefab)
+    {
+        if (currentLevel?.Prefabs == null)
+            currentLevel.Prefabs = new List<PrefabData>();
+        
+        
+
+        if (!prefabToIndex.TryGetValue(prefab.GetComponent<PrefabIdentifier>().basePrefab, out int index))
+        {
+            Debug.LogWarning($"Prefab not in lookup: {prefab.GetComponent<PrefabIdentifier>().basePrefab}");
+            return;
         }
 
-        if (currentLevel != null && currentLevel.LevelSets.Any(item => item.type == type))
+        currentLevel.Prefabs.Add(new PrefabData
         {
-            var set = currentLevel.LevelSets.FirstOrDefault(item => item.type == type);
-
-            AddTilesToMapList(set.tiles, map);
-            
-            set.prefabs = null;
-        } else
-        {
-            LevelData newData = new();
-            List<TileData> tiles = new();
-
-            AddTilesToMapList(tiles, map);
-
-            newData.type = type;
-            newData.tiles = tiles;
-            newData.prefabs = null;
-
-            currentLevel.LevelSets.Add(newData);
-        }
-
+            prefabIndex = index,
+            prefabName = prefab.name,
+            position = new Vector2(prefab.transform.position.x, prefab.transform.position.y),
+            zLayer = (int)prefab.transform.position.z,
+            rotation = prefab.transform.eulerAngles.z
+        });
     }
 
     void RefilTileDicts()
@@ -153,13 +169,28 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
+    void RefilPrefabDicts() //PrefabParentTypes
+    {
+        prefabToIndex = new Dictionary<PrefabParentType, int>();
+        indexToPrefab = new Dictionary<int, GameObject>();
+
+        for (int i = 0; i < prefabLookup.Length; i++)
+        {
+            prefabToIndex[prefabLookup[i].GetComponent<PrefabIdentifier>().basePrefab] = i;
+            indexToPrefab[i] = prefabLookup[i];
+        }
+    }
+
     public void SaveOpenLevelAsNewGameLevel()
     {
         string name = currentLevel != null ? currentLevel.name : "NewLevel";
+
         RefilTileDicts();
+        RefilPrefabDicts();
 
         GameLevel level = new GameLevel(name);
 
+        //Save Tiles
         TilemapContainer.GetComponent<TilemapParent>().RefreshTilemaps();
         foreach (var tm in TilemapContainer.GetComponent<TilemapParent>().tilemaps)
         {  
@@ -169,7 +200,31 @@ public class GameLevelManager : MonoBehaviour
             }
         }
 
-        level.LevelSets = currentLevel.LevelSets;
+        //Save Prefabs
+        PrefabContainer.GetComponent<PrefabsParent>().RefreshPrefabs();
+        Debug.Log("Prefabs found: " + PrefabContainer.GetComponent<PrefabsParent>().prefabs.Count);
+
+        if (currentLevel.Prefabs.Count > 0)
+        {
+            currentLevel.Prefabs.Clear();
+        }
+
+        foreach (GameObject pf in PrefabContainer.GetComponent<PrefabsParent>().prefabs)
+        {  
+            if (pf != null)
+            { 
+                SavePrefab(pf);   
+            }
+        }
+        level.Prefabs = currentLevel.Prefabs != null ? new List<PrefabData>(currentLevel.Prefabs) : new List<PrefabData>();
+
+        level.LevelSets = currentLevel.LevelSets.Select(x => new LevelData
+        {
+            type = x.type,
+            tiles = new List<TileData>(x.tiles)
+        }).ToList();
+
+        
 
         level.StartData.P1Start = new Vector2(Player1.transform.position.x, Player1.transform.position.y);
         level.StartData.P2Start = new Vector2(Player2.transform.position.x, Player2.transform.position.y);
@@ -181,7 +236,7 @@ public class GameLevelManager : MonoBehaviour
         
         string json = level.SerializeLevel();
 
-        string folder = Path.Combine(Application.dataPath, "Game Assets/Level/Levels");
+        string folder = Path.Combine(Application.dataPath, "Game Assets/Resources/Levels");
         Directory.CreateDirectory(folder);
 
         string path = Path.Combine(folder, name + ".json");
@@ -190,7 +245,7 @@ public class GameLevelManager : MonoBehaviour
         Debug.Log("Saved level: " + path);
     }
 
-    void LoadTilemap(Tilemap map, ObjectType type)
+    void LoadTilemap(Tilemap map, TilemapType type)
     {
         if (map == null)
         {
@@ -235,6 +290,41 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
+    void LoadPrefabs()
+    {
+        if (currentLevel == null)
+        {
+            Debug.LogError("CurrentLevel is null!");
+            return;
+        }
+
+        if (currentLevel.Prefabs == null)
+        {
+            Debug.LogWarning("No prefabs in level.");
+            return;
+        }
+
+        foreach (var data in currentLevel.Prefabs)
+        {
+            if (!indexToPrefab.TryGetValue(data.prefabIndex, out GameObject prefab))
+            {
+                Debug.LogWarning($"Missing prefab index: {data.prefabIndex}");
+                continue;
+            }
+
+            Vector3 pos = new Vector3(
+                data.position.x,
+                data.position.y,
+                data.zLayer
+            );
+
+            Vector3 rot = new Vector3(0, 0, data.rotation);
+
+            var instance = Instantiate(prefab, pos, Quaternion.Euler(rot), PrefabContainer.transform);
+            instance.name = data.prefabName;
+        }
+    }
+
     public void NewGameLevel(string name)
     {
         currentLevel = new GameLevel(name);
@@ -251,12 +341,13 @@ public class GameLevelManager : MonoBehaviour
        
         Player1.transform.position = new Vector3(-5, 0, 0);
         Player2.transform.position = new Vector3(5, 0, 0);
-        Camera.transform.position = Player1.transform.position;
+        Camera.transform.position = new Vector3(Player1.transform.position.x, Player1.transform.position.y, Camera.transform.position.z);
     }
 
     public void LoadGameLevel(string levelName)
     {
         RefilTileDicts();
+        RefilPrefabDicts();
         LoadAllLevelsFromFolder();
         if (!LevelDict.TryGetValue(levelName, out GameLevel found))
         {
@@ -271,6 +362,19 @@ public class GameLevelManager : MonoBehaviour
             LoadTilemap(tm.tilemap, tm.type);
         }
 
+        if (PrefabContainer.transform.childCount > 0)
+        {
+            foreach (Transform child in PrefabContainer.transform)
+            {
+                #if !UNITY_EDITOR
+                    Destroy(child.gameObject);
+                #else
+                    DestroyImmediate(child.gameObject);
+                #endif
+            }
+        }
+        LoadPrefabs();
+
         Player1.transform.position = new Vector3(found.StartData.P1Start.x, found.StartData.P1Start.y, 0);
         Player2.transform.position = new Vector3(found.StartData.P2Start.x, found.StartData.P2Start.y, 0);
         
@@ -278,11 +382,11 @@ public class GameLevelManager : MonoBehaviour
         switch (found.StartData.CameraStart)
         {
             case Players.Player1:
-            Camera.transform.position = Player1.transform.position;
+            Camera.transform.position = new Vector3(Player1.transform.position.x, Player1.transform.position.y, Camera.transform.position.z);
             break;
 
             case Players.Player2:
-            Camera.transform.position = Player2.transform.position;
+            Camera.transform.position = new Vector3(Player2.transform.position.x, Player2.transform.position.y, Camera.transform.position.z);
             break;
         }
 
@@ -294,7 +398,9 @@ public class GameLevelManager : MonoBehaviour
             };
         #endif
 
-        Debug.Log("Loaded level: " + levelName);
+        #if DEBUG
+            Debug.Log("Loaded level: " + levelName);
+        #endif
     }
 
 
@@ -319,13 +425,14 @@ public class GameLevelManagerEditor : Editor
 
         GameLevelManager manager = (GameLevelManager)target;
 
-        saveName = manager.currentLevel.name;
+        
 
         if (GUILayout.Button(loadLabel))
         {
             manager.LoadAllLevelsFromFolder(); // refresh list
             levelNames = new List<string>(manager.LevelDict.Keys).ToArray();
             loadLabel = "Reload levels";
+            saveName = manager.currentLevel.name;
         }
 
         

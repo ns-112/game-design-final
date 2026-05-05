@@ -6,7 +6,7 @@ public class GameLevelUtils
 {
     public void AddTileToLevel(
         GameLevel level,
-        ObjectType type,
+        TilemapType type,
         Vector3Int position,
         int textureIndex)
     {

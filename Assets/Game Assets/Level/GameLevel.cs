@@ -9,19 +9,15 @@ public enum Players
     Player2,
 }
 
+//Used for layering
 [System.Serializable]
-public enum ObjectType
+public enum TilemapType
 {
     Static,
-    Interactable,
-    Switches,
-    Goal,
-
-
     BG1
 }
 
-
+//Contains a texture id and position of a tile
 [System.Serializable]
 public class TileData
 {
@@ -29,13 +25,19 @@ public class TileData
     public Vector2Int position;
 }
 
-//Prefabs are stored in a dictionary, what is in the dictionary is determined by LevelStartData
+//
 [System.Serializable]
-public class ItemData
+public class PrefabData
 {
-    public string PrefabHash;
+    public int prefabIndex;
+    public string prefabName;
+    public Vector2 position;
+    public int zLayer;
+    public float rotation;
+    public List<float> Arguments;
 }
 
+//Contains data about the start, like player pos
 [System.Serializable]
 public class LevelStartData
 {
@@ -47,24 +49,26 @@ public class LevelStartData
 
     //Which player to start the camera on
     public Players CameraStart;
-
-    public List<string> ActivePrefabs;
 }
 
+//Class that contains tiles and their type for layering
 [System.Serializable]
 public class LevelData
 {
-    public ObjectType type;
+    public TilemapType type;
     public List<TileData> tiles;
-    public List<GameObject> prefabs;
 }
 
+
+//Main level class that contains all data
 [System.Serializable]
 public class GameLevel
 {
     public LevelStartData StartData = new();
     
     public List<LevelData> LevelSets = new();
+    public List<PrefabData> Prefabs = new();
+
 
     public string name;
 
