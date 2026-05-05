@@ -73,7 +73,14 @@ public class EscapeTimer : MonoBehaviour
   // implement Game Over logic here later
   void GameOver()
   {
-    Debug.Log("Time's up! Game Over.");
+    Debug.Log("Time's up. Game Over.");
+  }
+
+  // stops the escape timer when the player successfully escapes
+  public void StopTimer()
+  {
+    TimerRunning = false;
+    StopAllCoroutines();
   }
 
   // exposes remaining time for UI display
