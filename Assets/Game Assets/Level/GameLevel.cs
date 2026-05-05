@@ -29,6 +29,13 @@ public class TileData
     public Vector2Int position;
 }
 
+//Prefabs are stored in a dictionary, what is in the dictionary is determined by LevelStartData
+[System.Serializable]
+public class ItemData
+{
+    public string PrefabHash;
+}
+
 [System.Serializable]
 public class LevelStartData
 {
@@ -40,26 +47,24 @@ public class LevelStartData
 
     //Which player to start the camera on
     public Players CameraStart;
+
+    public List<string> ActivePrefabs;
+}
+
+[System.Serializable]
+public class LevelData
+{
+    public ObjectType type;
+    public List<TileData> tiles;
+    public List<GameObject> prefabs;
 }
 
 [System.Serializable]
 public class GameLevel
 {
     public LevelStartData StartData = new();
-
     
-    public List<TileData> StaticObjects = new();
-    public List<TileData> InteractableProps = new();
-    public List<TileData> Switches = new();
-
-
-
-    public List<TileData> BG1 = new();
-
-
-    
-
-    public TileData GoalItem = new();
+    public List<LevelData> LevelSets = new();
 
     public string name;
 

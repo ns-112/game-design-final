@@ -10,461 +10,491 @@
         },
         "P1Active": false,
         "P2Active": false,
-        "CameraStart": 0
+        "CameraStart": 0,
+        "ActivePrefabs": []
     },
-    "StaticObjects": [
+    "LevelSets": [
         {
-            "textureIndex": 5,
-            "position": {
-                "x": -8,
-                "y": -3
-            }
+            "type": 0,
+            "tiles": [
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 1,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 2,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 3,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 4,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 5,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 6,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 7,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 1,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -8,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -7,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -6,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -5,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -4,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -3,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -2,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": -1,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 7,
+                    "position": {
+                        "x": 1,
+                        "y": 0
+                    }
+                }
+            ],
+            "prefabs": []
         },
         {
-            "textureIndex": 5,
-            "position": {
-                "x": -7,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -6,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -5,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -4,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -3,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -2,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -1,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 0,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 1,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 2,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 3,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 4,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 5,
-                "y": -3
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -1,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 5,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 6,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": 7,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -1,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -1,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 5,
-            "position": {
-                "x": -1,
-                "y": 1
-            }
+            "type": 4,
+            "tiles": [
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 2,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 3,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 4,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 5,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 6,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 7,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 1,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 2,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 3,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 4,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 5,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 6,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 7,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -8,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -7,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -6,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -4,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -3,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -2,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -1,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 0,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 1,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 2,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 3,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 4,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 5,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 6,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 7,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -8,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -7,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -6,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -5,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -3,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -2,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -1,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 0,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 1,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 3,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 4,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 6,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 7,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -3,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -2,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -1,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 0,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -3,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -2,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": -1,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 8,
+                    "position": {
+                        "x": 0,
+                        "y": 4
+                    }
+                }
+            ],
+            "prefabs": []
         }
     ],
-    "InteractableProps": [],
-    "Switches": [],
-    "BG1": [
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -7,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -6,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -5,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -3,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -2,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -1,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 0,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 1,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 2,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 3,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 4,
-                "y": -2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -7,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -6,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -5,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -4,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -3,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -2,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -1,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 0,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 1,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 2,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 3,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 4,
-                "y": -1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -6,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -5,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -4,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -3,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -2,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -1,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 1,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 2,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 3,
-                "y": 0
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -4,
-                "y": 1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -3,
-                "y": 1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -2,
-                "y": 1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 2,
-                "y": 1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 3,
-                "y": 1
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -3,
-                "y": 2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": -2,
-                "y": 2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 2,
-                "y": 2
-            }
-        },
-        {
-            "textureIndex": 7,
-            "position": {
-                "x": 3,
-                "y": 2
-            }
-        }
-    ],
-    "GoalItem": {
-        "textureIndex": 0,
-        "position": {
-            "x": 0,
-            "y": 0
-        }
-    },
     "name": "level1"
 }

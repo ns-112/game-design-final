@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using System.Collections.Generic;
+using System.Linq;
 public class GameLevelUtils
 {
     public void AddTileToLevel(
@@ -15,31 +16,8 @@ public class GameLevelUtils
             textureIndex = textureIndex
         };
 
-        switch (type)
-        {
-            case ObjectType.Static:
-                level.StaticObjects.Add(data);
-                break;
-
-            case ObjectType.Interactable:
-                level.InteractableProps.Add(data);
-                break;
-
-            case ObjectType.Switches:
-                level.Switches.Add(data);
-                break;
-
-            case ObjectType.Goal:
-                level.GoalItem = data;
-                break;
-
-
-
-
-            case ObjectType.BG1:
-                level.BG1.Add(data);
-                break;
-        }
+        var set = level.LevelSets.FirstOrDefault(item => item.type == type);
+        set.tiles.Add(data);
     }
 
     

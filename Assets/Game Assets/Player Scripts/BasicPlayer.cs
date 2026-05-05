@@ -5,7 +5,7 @@ public class BasicPlayer : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    private float moveSpeed = 8f;
+    //private float moveSpeed = 8f;
 
     public PlayerType playerType;
     private Player self;
