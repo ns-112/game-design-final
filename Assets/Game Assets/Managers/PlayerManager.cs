@@ -46,7 +46,7 @@ public class Player
     public bool wallLeft = false;
     public bool wallRight = false;
 
-    public ItemPickup heldItem = null;
+    //public ItemPickup heldItem = null;
 
     public Player(PlayerType type)
     {
