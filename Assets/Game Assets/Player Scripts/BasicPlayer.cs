@@ -39,22 +39,29 @@ public class BasicPlayer : MonoBehaviour
 
     void OnJump()
     {
-        if (self.canJump)
+      if (self.canJump)
+      {
+        self.canJump = false;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+        rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
+      }
+      // wall jump only for Player2, must be touching a wall and not on the ground
+      else if (self.properties.canWallClimb && !self.canJump)
+      {
+        if (self.wallLeft)
         {
-            self.canJump = false;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
-        }   
-        else if (self.canDoubleJump && self.properties.canDoubleJump)
-        {
-            self.canDoubleJump = false;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
+          rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+          rb.AddForce(new Vector2(self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
         }
-            
+        else if (self.wallRight)
+        {
+          rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+          rb.AddForce(new Vector2(-self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
+        }
+      }
     }
 
-    void FixedUpdate()
+  void FixedUpdate()
     {
         if (PlayerManager.Instance.ActivePlayer == self.playerType)
         {
@@ -84,7 +91,7 @@ public class BasicPlayer : MonoBehaviour
     {
         if (PlayerManager.Instance.ActivePlayer == self.playerType)
         {
-            if (PlayerManager.Instance.jump.WasPressedThisFrame() && self.canDoubleJump)
+            if (PlayerManager.Instance.jump.WasPressedThisFrame())
             {
                 OnJump();
             } 
