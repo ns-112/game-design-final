@@ -56,7 +56,7 @@ public class Player
             //Heavy
             case PlayerType.Player1:
             properties.canDoubleJump = false;
-            properties.canWallClimb = false;
+            properties.canWallClimb = true;
 
             properties.moveSpeed = 4.0f;
             properties.jumpHeight = 4.1f;
@@ -66,9 +66,8 @@ public class Player
 
             //Light
             case PlayerType.Player2:
-            properties.canDoubleJump = true;
-            properties.canWallClimb = true;
-
+            properties.canDoubleJump = false;
+            properties.canWallClimb = false;
             properties.moveSpeed = 9.0f;
             properties.jumpHeight = 2.2f;
             properties.weight = 0.3f;
