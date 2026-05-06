@@ -1,12 +1,12 @@
 {
     "StartData": {
         "P1Start": {
-            "x": -5.0,
-            "y": 0.0
+            "x": -5.889999866485596,
+            "y": -0.9900000095367432
         },
         "P2Start": {
-            "x": 32.45000076293945,
-            "y": 6.489999771118164
+            "x": 26.56999969482422,
+            "y": -0.6100000143051148
         },
         "P1Active": false,
         "P2Active": false,
@@ -397,6 +397,13 @@
                 {
                     "textureIndex": 6,
                     "position": {
+                        "x": 23,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
                         "x": 40,
                         "y": -2
                     }
@@ -405,6 +412,13 @@
                     "textureIndex": 6,
                     "position": {
                         "x": -12,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 23,
                         "y": -1
                     }
                 },
@@ -551,6 +565,139 @@
                 {
                     "textureIndex": 6,
                     "position": {
+                        "x": 12,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 13,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 14,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 15,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 16,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 17,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 18,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 19,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 20,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 21,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 22,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 23,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 24,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 25,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 26,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 30,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 31,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 32,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
+                        "x": 33,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 6,
+                    "position": {
                         "x": 34,
                         "y": 3
                     }
@@ -559,34 +706,6 @@
                     "textureIndex": 6,
                     "position": {
                         "x": 8,
-                        "y": 4
-                    }
-                },
-                {
-                    "textureIndex": 6,
-                    "position": {
-                        "x": 30,
-                        "y": 4
-                    }
-                },
-                {
-                    "textureIndex": 6,
-                    "position": {
-                        "x": 31,
-                        "y": 4
-                    }
-                },
-                {
-                    "textureIndex": 6,
-                    "position": {
-                        "x": 32,
-                        "y": 4
-                    }
-                },
-                {
-                    "textureIndex": 6,
-                    "position": {
-                        "x": 33,
                         "y": 4
                     }
                 },
@@ -4000,18 +4119,18 @@
     ],
     "Prefabs": [
         {
-            "prefabIndex": 1,
+            "prefabIndex": 3,
             "prefabName": "TestEnemy",
             "position": {
-                "x": 12.850000381469727,
-                "y": 10.180000305175782
+                "x": 12.130000114440918,
+                "y": 4.699999809265137
             },
             "zLayer": 0,
             "rotation": 0.0,
             "Arguments": []
         },
         {
-            "prefabIndex": 2,
+            "prefabIndex": 0,
             "prefabName": "EscapeZone",
             "position": {
                 "x": -8.449999809265137,
@@ -4022,7 +4141,7 @@
             "Arguments": []
         },
         {
-            "prefabIndex": 3,
+            "prefabIndex": 1,
             "prefabName": "Key",
             "position": {
                 "x": 37.34000015258789,
@@ -4031,6 +4150,58 @@
             "zLayer": 0,
             "rotation": 0.0,
             "Arguments": []
+        },
+        {
+            "prefabIndex": 2,
+            "prefabName": "label1",
+            "position": {
+                "x": -8.199999809265137,
+                "y": 2.8499999046325685
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": [
+                "goal"
+            ]
+        },
+        {
+            "prefabIndex": 2,
+            "prefabName": "label2",
+            "position": {
+                "x": 19.3700008392334,
+                "y": -0.03999999910593033
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": [
+                "shift to switch"
+            ]
+        },
+        {
+            "prefabIndex": 2,
+            "prefabName": "label4",
+            "position": {
+                "x": 11.920000076293946,
+                "y": 6.389999866485596
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": [
+                "evil dog"
+            ]
+        },
+        {
+            "prefabIndex": 2,
+            "prefabName": "label3",
+            "position": {
+                "x": 36.189998626708987,
+                "y": 0.4099999964237213
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": [
+                "item"
+            ]
         }
     ],
     "name": "level3"

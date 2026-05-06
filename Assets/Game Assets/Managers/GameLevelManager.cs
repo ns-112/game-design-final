@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
 using System;
 using System.Linq;
+using TMPro;
 
 //Contains data for the currently loaded level, like timers
 //Add in menu and use to load levels when needed
@@ -16,13 +17,13 @@ public class GameLevelManager : MonoBehaviour
     public GameLevel currentLevel; //NOT for creating new levels
 
     public TileBase[] tileLookup;
-    public GameObject[] prefabLookup;
+    public List<GameObject> prefabLookup;
 
     Dictionary<TileBase, int> tileToIndex;
     Dictionary<int, TileBase> indexToTile;
 
 
-    Dictionary<PrefabType, int> prefabToIndex;
+    Dictionary<GameObject, int> prefabToIndex;
     Dictionary<int, GameObject> indexToPrefab;
 
 
@@ -141,7 +142,7 @@ public class GameLevelManager : MonoBehaviour
         
         
 
-        if (!prefabToIndex.TryGetValue(prefab.GetComponent<PrefabIdentifier>().basePrefab, out int index))
+        if (!prefabToIndex.TryGetValue(prefab.GetComponent<PrefabIdentifier>().basePrefab.prefab, out int index))
         {
             Debug.LogWarning($"Prefab not in lookup: {prefab.GetComponent<PrefabIdentifier>().basePrefab}");
             return;
@@ -149,13 +150,19 @@ public class GameLevelManager : MonoBehaviour
 
         List<string> args = new List<string>();
 
+        if (prefab.GetComponent<PrefabIdentifier>().basePrefab.prefab.name == "LabelBase")
+        {
+            args.Add(prefab.GetComponent<TextMeshPro>().text);
+        }
+
         currentLevel.Prefabs.Add(new PrefabData
         {
             prefabIndex = index,
             prefabName = prefab.name,
             position = new Vector2(prefab.transform.position.x, prefab.transform.position.y),
             zLayer = (int)prefab.transform.position.z,
-            rotation = prefab.transform.eulerAngles.z
+            rotation = prefab.transform.eulerAngles.z,
+            Arguments = args
         });
     }
 
@@ -171,25 +178,35 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
-    void RefilPrefabDicts() //PrefabParentTypes
+    public void RefilPrefabDicts() //PrefabParentTypes
     {
-        prefabToIndex = new Dictionary<PrefabType, int>();
+        prefabToIndex = new Dictionary<GameObject, int>();
         indexToPrefab = new Dictionary<int, GameObject>();
 
         //
         string path = Path.Combine(Application.dataPath, "Game Assets/Resources/LevelPrefabs");
         string[] files = Directory.GetFiles(path, "*.prefab");
 
+        prefabLookup.Clear();
+        
+        int index = 0;
         foreach (string file in files)
         {
-            string json = File.ReadAllText(file);
-        }
+            string prefName = Path.GetFileNameWithoutExtension(file);
+            GameObject prefab = Resources.Load<GameObject>("LevelPrefabs/" + prefName);
+            Debug.Log(prefName);
 
+            PrefabType t = new PrefabType{
+                prefab = prefab,
+                index = index
+            };
 
-        for (int i = 0; i < prefabLookup.Length; i++)
-        {
-            prefabToIndex[prefabLookup[i].GetComponent<PrefabIdentifier>().basePrefab] = i;
-            indexToPrefab[i] = prefabLookup[i];
+            prefabToIndex[prefab] = index;
+            indexToPrefab[index] = prefab;
+
+            prefabLookup.Add(prefab);
+
+            index++;
         }
     }
 
@@ -225,6 +242,7 @@ public class GameLevelManager : MonoBehaviour
         {  
             if (pf != null)
             { 
+                pf.GetComponent<PrefabIdentifier>().basePrefab.index = prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab];
                 SavePrefab(pf);   
             }
         }
@@ -324,6 +342,8 @@ public class GameLevelManager : MonoBehaviour
                 continue;
             }
 
+            
+
             Vector3 pos = new Vector3(
                 data.position.x,
                 data.position.y,
@@ -334,6 +354,15 @@ public class GameLevelManager : MonoBehaviour
 
             var instance = Instantiate(prefab, pos, Quaternion.Euler(rot), PrefabContainer.transform);
             instance.name = data.prefabName;
+            instance.GetComponent<PrefabIdentifier>().basePrefab.index = data.prefabIndex;
+            instance.GetComponent<PrefabIdentifier>().basePrefab.prefab = prefab;
+
+            if (prefab.name == "LabelBase")
+            {
+                instance.GetComponent<TextMeshPro>().text = data.Arguments[0];
+            }
+
+
         }
     }
 
@@ -430,6 +459,8 @@ public class GameLevelManager : MonoBehaviour
         #if DEBUG
             Debug.Log("Loaded level: " + levelName);
         #endif
+
+
     }
 
 
@@ -500,6 +531,11 @@ public class GameLevelManagerEditor : Editor
         }
 
         GUILayout.Space(10);
+
+        if (GUILayout.Button("Debug"))
+        {
+            manager.RefilPrefabDicts();
+        }
 
     GUILayout.Label("Save Level As:");
 

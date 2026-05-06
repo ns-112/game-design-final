@@ -58,7 +58,7 @@ public class Player
             properties.canDoubleJump = false;
             properties.canWallClimb = true;
 
-            properties.moveSpeed = 4.0f;
+            properties.moveSpeed = 5.5f;
             properties.jumpHeight = 4.1f;
             properties.weight = 0.7f;
             properties.strength = 5.0f;

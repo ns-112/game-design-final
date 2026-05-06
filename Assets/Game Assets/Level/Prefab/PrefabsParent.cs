@@ -30,7 +30,8 @@ public class PrefabsParent : MonoBehaviour
         }
         for (int i = 0; i < transform.childCount; i++)
         {
-            prefabs.Add(transform.GetChild(i).gameObject);
+            var obj = transform.GetChild(i).gameObject;
+            prefabs.Add(obj);
         }
     }
 
