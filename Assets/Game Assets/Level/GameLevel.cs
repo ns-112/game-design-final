@@ -14,7 +14,25 @@ public enum Players
 public enum TilemapType
 {
     Static,
-    BG1
+
+    //BG and parallax layers are intertwined, it follows the pattern: (highest) bg1 -> pa1 -> bg2 -> pa2... (lowest)
+
+    //BG Layers
+    BG1,
+    BG2,
+    BG3,
+    BG4,
+    //Parallax Layers
+    PA1,
+    PA2,
+    PA3,
+    PA4,
+
+    //Foreground Layers
+    FG1,
+    FG2,
+    FG3,
+    FG4,
 }
 
 //Contains a texture id and position of a tile
@@ -34,7 +52,7 @@ public class PrefabData
     public Vector2 position;
     public int zLayer;
     public float rotation;
-    public List<float> Arguments;
+    public List<string> Arguments;
 }
 
 //Contains data about the start, like player pos

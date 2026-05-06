@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class PrefabIdentifier : MonoBehaviour
 {
-    public PrefabParentType basePrefab;
+    public PrefabType basePrefab;
 }

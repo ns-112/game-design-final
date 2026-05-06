@@ -22,7 +22,7 @@ public class GameLevelManager : MonoBehaviour
     Dictionary<int, TileBase> indexToTile;
 
 
-    Dictionary<PrefabParentType, int> prefabToIndex;
+    Dictionary<PrefabType, int> prefabToIndex;
     Dictionary<int, GameObject> indexToPrefab;
 
 
@@ -147,6 +147,8 @@ public class GameLevelManager : MonoBehaviour
             return;
         }
 
+        List<string> args = new List<string>();
+
         currentLevel.Prefabs.Add(new PrefabData
         {
             prefabIndex = index,
@@ -171,8 +173,18 @@ public class GameLevelManager : MonoBehaviour
 
     void RefilPrefabDicts() //PrefabParentTypes
     {
-        prefabToIndex = new Dictionary<PrefabParentType, int>();
+        prefabToIndex = new Dictionary<PrefabType, int>();
         indexToPrefab = new Dictionary<int, GameObject>();
+
+        //
+        string path = Path.Combine(Application.dataPath, "Game Assets/Resources/LevelPrefabs");
+        string[] files = Directory.GetFiles(path, "*.prefab");
+
+        foreach (string file in files)
+        {
+            string json = File.ReadAllText(file);
+        }
+
 
         for (int i = 0; i < prefabLookup.Length; i++)
         {
@@ -327,6 +339,10 @@ public class GameLevelManager : MonoBehaviour
 
     public void NewGameLevel(string name)
     {
+        RefilTileDicts();
+        RefilPrefabDicts();
+        
+
         currentLevel = new GameLevel(name);
         TilemapContainer.GetComponent<TilemapParent>().RefreshTilemaps();
         foreach (var tm in TilemapContainer.GetComponent<TilemapParent>().tilemaps)
@@ -335,6 +351,15 @@ public class GameLevelManager : MonoBehaviour
             {
                 tm.tilemap.ClearAllTiles();
             }
+        }
+
+        PrefabContainer.GetComponent<PrefabsParent>().RefreshPrefabs();
+        PrefabContainer.GetComponent<PrefabsParent>().ClearPrefabs();
+        Debug.Log("Prefabs found: " + PrefabContainer.GetComponent<PrefabsParent>().prefabs.Count);
+
+        if (currentLevel.Prefabs.Count > 0)
+        {
+            currentLevel.Prefabs.Clear();
         }
 
         currentLevel.StartData.CameraStart = Players.Player1;

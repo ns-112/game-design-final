@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum ItemWeight { 
 	Normal, 
-    Heavy 
+	Heavy 
 }
 
 public class ItemPickup : MonoBehaviour
