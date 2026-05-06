@@ -40,6 +40,7 @@ public class Player
     public GameObject gameObject;
     
     public bool canJump = true;
+    public bool canWC = true;
     public bool canDoubleJump = true;
     public bool characterActive = true;
 
@@ -59,7 +60,7 @@ public class Player
             properties.canWallClimb = true;
 
             properties.moveSpeed = 5.5f;
-            properties.jumpHeight = 3.25f;
+            properties.jumpHeight = 4.25f;
             properties.weight = 0.7f;
             properties.strength = 5.0f;
             break;

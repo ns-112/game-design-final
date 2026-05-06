@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-public class PlayerBottomHB : MonoBehaviour
+public class PlayerMidSection : MonoBehaviour
 {
     private Player parentPlayer;
 
@@ -19,22 +18,25 @@ public class PlayerBottomHB : MonoBehaviour
             GetComponent<Collider2D>(),
             transform.parent.GetComponent<Collider2D>()
         );
+        
+        
 
         var type = transform.parent.GetComponent<BasicPlayer>().playerType;
 
         while (!PlayerManager.Instance.Players.TryGetValue(type, out parentPlayer))
             yield return null;
+        
+        parentPlayer.canWC = false;
 
     }
-    
-    void OnCollisionEnter2D(Collision2D collision)
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        parentPlayer.canJump = true;
-        parentPlayer.canDoubleJump = true;
+        parentPlayer.canWC = true;
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        parentPlayer.canJump = false;
+        parentPlayer.canWC = false;
     }
 }
