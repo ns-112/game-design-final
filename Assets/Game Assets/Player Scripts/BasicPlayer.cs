@@ -10,6 +10,8 @@ public class BasicPlayer : MonoBehaviour
     public PlayerType playerType;
     private Player self;
 
+    private Vector3 startPos;
+
     
 
 
@@ -19,7 +21,7 @@ public class BasicPlayer : MonoBehaviour
     void Awake()
     {
         
-
+        startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
 
         self = new(playerType)
@@ -91,11 +93,17 @@ public class BasicPlayer : MonoBehaviour
     {
         if (PlayerManager.Instance.ActivePlayer == self.playerType)
         {
-            if (PlayerManager.Instance.jump.WasPressedThisFrame())
+            if (PlayerManager.Instance.jump.IsPressed())
             {
                 OnJump();
             } 
         }
+
+        if (transform.position.y < -30)
+        {
+            transform.position = startPos;
+        }
+
        
     }
 }

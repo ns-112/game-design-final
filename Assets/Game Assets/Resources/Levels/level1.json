@@ -799,31 +799,12 @@
                     }
                 }
             ]
-        }
-    ],
-    "Prefabs": [
-        {
-            "prefabIndex": 0,
-            "prefabName": "Triangle1111",
-            "position": {
-                "x": -1.228365421295166,
-                "y": 2.2545406818389894
-            },
-            "zLayer": 0,
-            "rotation": 39.59999084472656,
-            "Arguments": []
         },
         {
-            "prefabIndex": 1,
-            "prefabName": "TestEnemy",
-            "position": {
-                "x": 1.9020099639892579,
-                "y": 0.0
-            },
-            "zLayer": 0,
-            "rotation": 0.0,
-            "Arguments": []
+            "type": 5,
+            "tiles": []
         }
     ],
+    "Prefabs": [],
     "name": "level1"
 }

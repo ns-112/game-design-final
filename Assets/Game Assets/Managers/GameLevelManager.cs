@@ -183,7 +183,6 @@ public class GameLevelManager : MonoBehaviour
         prefabToIndex = new Dictionary<GameObject, int>();
         indexToPrefab = new Dictionary<int, GameObject>();
 
-        //
         string path = Path.Combine(Application.dataPath, "Game Assets/Resources/LevelPrefabs");
         string[] files = Directory.GetFiles(path, "*.prefab");
 
@@ -194,7 +193,7 @@ public class GameLevelManager : MonoBehaviour
         {
             string prefName = Path.GetFileNameWithoutExtension(file);
             GameObject prefab = Resources.Load<GameObject>("LevelPrefabs/" + prefName);
-            Debug.Log(prefName);
+            Debug.Log("Loading prefab: " + prefName);
 
             PrefabType t = new PrefabType{
                 prefab = prefab,
@@ -532,7 +531,7 @@ public class GameLevelManagerEditor : Editor
 
         GUILayout.Space(10);
 
-        if (GUILayout.Button("Debug"))
+        if (GUILayout.Button("Reload Prefabs"))
         {
             manager.RefilPrefabDicts();
         }
