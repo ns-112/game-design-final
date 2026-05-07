@@ -11657,7 +11657,7 @@
     ],
     "Prefabs": [
         {
-            "prefabIndex": 0,
+            "prefabIndex": 1,
             "prefabName": "EscapeZone",
             "position": {
                 "x": -11.539999961853028,
@@ -11669,7 +11669,7 @@
         },
         {
             "prefabIndex": 1,
-            "prefabName": "Key",
+            "prefabName": "GoalItem1",
             "position": {
                 "x": 56.073631286621097,
                 "y": 9.00020694732666

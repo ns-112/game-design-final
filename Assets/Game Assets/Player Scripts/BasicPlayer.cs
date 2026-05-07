@@ -86,7 +86,9 @@ public class BasicPlayer : MonoBehaviour
             }
 
             Vector2 move = new Vector2(x, 0);
-            rb.linearVelocity = new(move.x * self.properties.moveSpeed, rb.linearVelocity.y);
+            Vector2 vel = rb.linearVelocity;
+            vel.x = move.x * self.properties.moveSpeed;
+            rb.linearVelocity = vel;
         }
         
     }

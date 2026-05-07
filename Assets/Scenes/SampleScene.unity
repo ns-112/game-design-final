@@ -169,11 +169,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabsParent
   prefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2085938683}
+  - {fileID: 17868244}
+  - {fileID: 1191899652}
+  - {fileID: 1805963456}
+  - {fileID: 1869760868}
+--- !u!1 &17868244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2318112788159946669, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
+  m_PrefabInstance: {fileID: 4399359209060577865}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &17868245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6305747781391225073, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
@@ -5003,14 +5008,14 @@ MonoBehaviour:
     - type: 5
       tiles: []
     Prefabs:
-    - prefabIndex: 0
+    - prefabIndex: 1
       prefabName: EscapeZone
       position: {x: -11.54, y: -4.31}
       zLayer: 0
       rotation: 90
       Arguments: []
     - prefabIndex: 1
-      prefabName: Key
+      prefabName: GoalItem1
       position: {x: 56.07363, y: 9.000207}
       zLayer: 0
       rotation: 0
@@ -5050,7 +5055,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee530a6e4be454141b12ab1cdb357912, type: 2}
   prefabLookup:
   - {fileID: 7540060862489313570, guid: 9bdc6e5bd5081974aad621aae0a300f2, type: 3}
-  - {fileID: 1861410469025837147, guid: 8a07022fa97f2b746a6cc01ea49348c2, type: 3}
+  - {fileID: 2318112788159946669, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
   - {fileID: 5493784540798052952, guid: 8987d53f2e43a4a4388a6fcfa743ab38, type: 3}
   - {fileID: 5406865936896685053, guid: c1acae9c396e4044fb667e5da4b6bbc4, type: 3}
   - {fileID: 5405517346286989161, guid: 1c5718f6b6a543c419c1b7bf3837d077, type: 3}
@@ -23001,8 +23006,8 @@ Transform:
   m_GameObject: {fileID: 1756884804}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
-  m_LocalScale: {x: 0.97, y: 0.2842354, z: 1}
+  m_LocalPosition: {x: 0, y: -0.3902, z: 0}
+  m_LocalScale: {x: 0.94536203, y: 0.26453787, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 886904274}
@@ -23869,7 +23874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PrefabIdentifier
   basePrefab:
     prefab: {fileID: 2318112788159946669, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
-    index: 0
+    index: 1
 --- !u!114 &2085938686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24028,6 +24033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 931698}
     m_Modifications:
+    - target: {fileID: 1399931715866823550, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
+      propertyPath: basePrefab.prefab
+      value: 
+      objectReference: {fileID: 2318112788159946669, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
     - target: {fileID: 2318112788159946669, guid: 3c537d3a580bf424f99a10ecffe7d5f4, type: 3}
       propertyPath: m_Name
       value: GoalItem1
