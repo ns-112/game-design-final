@@ -67,6 +67,7 @@ public class LevelStartData
 
     //Which player to start the camera on
     public Players CameraStart;
+    public float TimerLength;
 }
 
 //Class that contains tiles and their type for layering

@@ -8,7 +8,7 @@
             "x": 26.56999969482422,
             "y": -0.6100000143051148
         },
-        "P1Active": false,
+        "P1Active": true,
         "P2Active": false,
         "CameraStart": 0
     },
@@ -4119,7 +4119,7 @@
     ],
     "Prefabs": [
         {
-            "prefabIndex": 3,
+            "prefabIndex": 10,
             "prefabName": "TestEnemy",
             "position": {
                 "x": 12.130000114440918,
@@ -4141,7 +4141,7 @@
             "Arguments": []
         },
         {
-            "prefabIndex": 1,
+            "prefabIndex": 6,
             "prefabName": "Key",
             "position": {
                 "x": 37.34000015258789,
@@ -4152,7 +4152,7 @@
             "Arguments": []
         },
         {
-            "prefabIndex": 2,
+            "prefabIndex": 5,
             "prefabName": "label1",
             "position": {
                 "x": -8.199999809265137,
@@ -4165,7 +4165,7 @@
             ]
         },
         {
-            "prefabIndex": 2,
+            "prefabIndex": 5,
             "prefabName": "label2",
             "position": {
                 "x": 19.3700008392334,
@@ -4178,7 +4178,7 @@
             ]
         },
         {
-            "prefabIndex": 2,
+            "prefabIndex": 5,
             "prefabName": "label4",
             "position": {
                 "x": 11.920000076293946,
@@ -4191,7 +4191,7 @@
             ]
         },
         {
-            "prefabIndex": 2,
+            "prefabIndex": 5,
             "prefabName": "label3",
             "position": {
                 "x": 36.189998626708987,

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7540060862489313570
+--- !u!1 &6214204373600390199
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,80 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 70518289556164387}
-  - component: {fileID: 5374066713842304021}
-  - component: {fileID: 5889694791051901942}
-  - component: {fileID: 5678590412762869956}
+  - component: {fileID: 6321914350784534347}
+  - component: {fileID: -8631359462334942669}
+  - component: {fileID: 5640190571147895677}
+  - component: {fileID: 6249378936735334172}
   m_Layer: 0
-  m_Name: EscapeZone
-  m_TagString: Untagged
+  m_Name: PlayerswapTrigger
+  m_TagString: Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &70518289556164387
+--- !u!4 &6321914350784534347
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7540060862489313570}
+  m_GameObject: {fileID: 6214204373600390199}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.36, y: -1.49, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5374066713842304021
+--- !u!114 &-8631359462334942669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214204373600390199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee94cb1ebe72c3b43acf98747c433486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PrefabIdentifier
+  basePrefab:
+    prefab: {fileID: 6214204373600390199}
+    index: 11
+--- !u!114 &5640190571147895677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214204373600390199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fb3f9bb83929e408b9421102845d7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TogglePlayerTrigger
+  ActivateAmount: 1
+  DeactivateAmount: 0
+  TogglePlayer: 0
+  State: 0
+--- !u!61 &6249378936735334172
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7540060862489313570}
+  m_GameObject: {fileID: 6214204373600390199}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -68,7 +99,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.5455471}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,32 +109,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 4.091095}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5889694791051901942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7540060862489313570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6299f75dac88e8346883d02317c8f4fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EscapeZone
---- !u!114 &5678590412762869956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7540060862489313570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee94cb1ebe72c3b43acf98747c433486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PrefabIdentifier
-  basePrefab:
-    prefab: {fileID: 7540060862489313570}
-    index: 0

@@ -31,6 +31,7 @@ public class PrefabsParent : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             var obj = transform.GetChild(i).gameObject;
+            //Debug.Log($"Adding {obj.name} to prefabs");
             prefabs.Add(obj);
         }
     }

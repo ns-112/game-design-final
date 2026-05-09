@@ -7,12 +7,14 @@ using Unity.VisualScripting;
 using System;
 using System.Linq;
 using TMPro;
+using System.Collections;
 
 //Contains data for the currently loaded level, like timers
 //Add in menu and use to load levels when needed
 public class GameLevelManager : MonoBehaviour
 {
     public static GameLevelManager Instance { get; private set; }
+    public GameObject PrefabRegistrar;
     public Dictionary<string, GameLevel> LevelDict = new Dictionary<string, GameLevel>();
     public GameLevel currentLevel; //NOT for creating new levels
 
@@ -63,9 +65,16 @@ public class GameLevelManager : MonoBehaviour
             RefilTileDicts();
             RefilPrefabDicts();
             LoadAllLevelsFromFolder();
-
+            
             
         }
+    }
+
+    IEnumerator Start()
+    {
+        yield return null;
+
+        LoadGameLevel(currentLevel.name);
     }
 
     public void LoadAllLevelsFromFolder()
@@ -150,9 +159,19 @@ public class GameLevelManager : MonoBehaviour
 
         List<string> args = new List<string>();
 
-        if (prefab.GetComponent<PrefabIdentifier>().basePrefab.prefab.name == "LabelBase")
+        if (prefab.TryGetComponent(out TextMeshPro tmp))
         {
-            args.Add(prefab.GetComponent<TextMeshPro>().text);
+            args.Add(tmp.text); //args[0]
+        } else if (prefab.TryGetComponent(out TogglePlayerTrigger tpt))
+        {
+            args.Add(tpt.ActivateAmount.ToString()); //args[0]
+            args.Add(tpt.DeactivateAmount.ToString()); //args[1]
+            args.Add(((int)tpt.TogglePlayer).ToString()); //args[2]
+            args.Add(((int)tpt.State).ToString()); //args[3]
+        } else if (prefab.TryGetComponent(out PlayerTrigger pt))
+        {
+            args.Add(pt.ActivateAmount.ToString()); //args[0]
+            args.Add(pt.DeactivateAmount.ToString()); //args[1]
         }
 
         currentLevel.Prefabs.Add(new PrefabData
@@ -178,34 +197,32 @@ public class GameLevelManager : MonoBehaviour
         }
     }
 
-    public void RefilPrefabDicts() //PrefabParentTypes
+    public void RefilPrefabDicts()
     {
         prefabToIndex = new Dictionary<GameObject, int>();
         indexToPrefab = new Dictionary<int, GameObject>();
 
-        string path = Path.Combine(Application.dataPath, "Game Assets/Resources/LevelPrefabs");
-        string[] files = Directory.GetFiles(path, "*.prefab");
-
         prefabLookup.Clear();
-        
-        int index = 0;
-        foreach (string file in files)
+
+        foreach (var entry in PrefabRegistrar.GetComponent<PrefabManager>().RegisteredPrefabs)
         {
-            string prefName = Path.GetFileNameWithoutExtension(file);
-            GameObject prefab = Resources.Load<GameObject>("LevelPrefabs/" + prefName);
-            Debug.Log("Loading prefab: " + prefName);
+            if (entry.prefab == null)
+            {
+                #if DEBUG
+                Debug.Log(entry.index);
+                #endif
+                continue;
+            }
+            
 
-            PrefabType t = new PrefabType{
-                prefab = prefab,
-                index = index
-            };
+            prefabToIndex[entry.prefab] = entry.index;
+            indexToPrefab[entry.index] = entry.prefab;
 
-            prefabToIndex[prefab] = index;
-            indexToPrefab[index] = prefab;
-
-            prefabLookup.Add(prefab);
-
-            index++;
+            prefabLookup.Add(entry.prefab);
+            
+            #if DEBUG
+            Debug.Log($"Registered prefab: {indexToPrefab[entry.index].name}({indexToPrefab[entry.index].GetHashCode()}) -> {prefabToIndex[entry.prefab]}");
+            #endif
         }
     }
 
@@ -230,7 +247,9 @@ public class GameLevelManager : MonoBehaviour
 
         //Save Prefabs
         PrefabContainer.GetComponent<PrefabsParent>().RefreshPrefabs();
+        #if DEBUG
         Debug.Log("Prefabs found: " + PrefabContainer.GetComponent<PrefabsParent>().prefabs.Count);
+        #endif
 
         if (currentLevel.Prefabs.Count > 0)
         {
@@ -241,6 +260,9 @@ public class GameLevelManager : MonoBehaviour
         {  
             if (pf != null)
             { 
+                #if DEBUG
+                Debug.Log($"Looking up prefab: {indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].name}({indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].GetHashCode()}) -> {prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab]}");
+                #endif
                 pf.GetComponent<PrefabIdentifier>().basePrefab.index = prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab];
                 SavePrefab(pf);   
             }
@@ -356,12 +378,66 @@ public class GameLevelManager : MonoBehaviour
             instance.GetComponent<PrefabIdentifier>().basePrefab.index = data.prefabIndex;
             instance.GetComponent<PrefabIdentifier>().basePrefab.prefab = prefab;
 
-            if (prefab.name == "LabelBase")
+            if (instance.TryGetComponent(out TextMeshPro tmp))
             {
-                instance.GetComponent<TextMeshPro>().text = data.Arguments[0];
-            }
+                tmp.text = data.Arguments[0];
+            } else if (instance.TryGetComponent(out TogglePlayerTrigger tpt))
+            {
+                if (int.TryParse(data.Arguments[0], out int res1))
+                {
+                    tpt.ActivateAmount = res1;
+                }
+                else
+                {
+                    Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
+                }
 
+                if (int.TryParse(data.Arguments[0], out int res2))
+                {
+                    tpt.DeactivateAmount = res2;
+                }
+                else
+                {
+                    Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
+                }
 
+                if (int.TryParse(data.Arguments[2], out int res3))
+                {
+                    tpt.TogglePlayer = (PlayerType)res3;
+                }
+                else
+                {
+                    Debug.LogError("Argument[2] for " + data.prefabName + " failed to parse");
+                }
+
+                if (int.TryParse(data.Arguments[3], out int res4))
+                {
+                    tpt.State = (ToggleState)res4;
+                }
+                else
+                {
+                    Debug.LogError("Argument[3] for " + data.prefabName + " failed to parse");
+                }
+            } else if (instance.TryGetComponent(out PlayerTrigger pt))
+            {
+                if (int.TryParse(data.Arguments[0], out int res1))
+                {
+                    pt.ActivateAmount = res1;
+                }
+                else
+                {
+                    Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
+                }
+
+                if (int.TryParse(data.Arguments[0], out int res2))
+                {
+                    pt.DeactivateAmount = res2;
+                }
+                else
+                {
+                    Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
+                }
+            } 
         }
     }
 
@@ -383,7 +459,10 @@ public class GameLevelManager : MonoBehaviour
 
         PrefabContainer.GetComponent<PrefabsParent>().RefreshPrefabs();
         PrefabContainer.GetComponent<PrefabsParent>().ClearPrefabs();
+
+        #if DEBUG
         Debug.Log("Prefabs found: " + PrefabContainer.GetComponent<PrefabsParent>().prefabs.Count);
+        #endif
 
         if (currentLevel.Prefabs.Count > 0)
         {
@@ -435,6 +514,11 @@ public class GameLevelManager : MonoBehaviour
         Player1.transform.position = new Vector3(found.StartData.P1Start.x, found.StartData.P1Start.y, 0);
         Player2.transform.position = new Vector3(found.StartData.P2Start.x, found.StartData.P2Start.y, 0);
         
+        #if !UNITY_EDITOR
+            PlayerManager.Instance.Players[PlayerType.Player1].characterActive = found.StartData.P1Active;
+            PlayerManager.Instance.Players[PlayerType.Player2].characterActive = found.StartData.P2Active;
+        #endif
+        currentLevel.StartData = found.StartData;
         
         switch (found.StartData.CameraStart)
         {
@@ -456,7 +540,7 @@ public class GameLevelManager : MonoBehaviour
         #endif
 
         #if DEBUG
-            Debug.Log("Loaded level: " + levelName);
+        Debug.Log("Loaded level: " + levelName);
         #endif
 
 

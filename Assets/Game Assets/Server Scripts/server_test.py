@@ -55,6 +55,5 @@ def reset_scores():
 
     print(req.status_code, req.text)
 
-#submit_score(1_000_000_000, "nice jackson")
 reset_scores()
-#c4e1776c372140476cc007068e8dfd0a
+

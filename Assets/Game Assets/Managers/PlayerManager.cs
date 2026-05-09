@@ -33,6 +33,7 @@ public struct LevelOptions
     
 }
 
+[System.Serializable]
 public class Player
 {
     public PlayerType playerType;
@@ -42,7 +43,7 @@ public class Player
     public bool canJump = true;
     public bool canWC = true;
     public bool canDoubleJump = true;
-    public bool characterActive = true;
+    public bool characterActive = false;
 
     public bool wallLeft = false;
     public bool wallRight = false;
@@ -82,6 +83,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
+    [SerializeField]
     public Dictionary<PlayerType, Player> Players = new Dictionary<PlayerType, Player>();
     public PlayerType ActivePlayer = PlayerType.Player1;
 
@@ -129,10 +131,10 @@ public class PlayerManager : MonoBehaviour
 
     void SwapPlayers()
     {
-        if (ActivePlayer == PlayerType.Player1)
+        if (ActivePlayer == PlayerType.Player1 && Players[PlayerType.Player2].characterActive)
         {
             ActivePlayer = PlayerType.Player2;
-        } else
+        } else if (Players[PlayerType.Player1].characterActive)
         {
             ActivePlayer = PlayerType.Player1;
         }

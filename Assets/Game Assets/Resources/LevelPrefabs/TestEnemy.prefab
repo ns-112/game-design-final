@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee94cb1ebe72c3b43acf98747c433486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabIdentifier
-  basePrefab: 1
+  basePrefab:
+    prefab: {fileID: 5406865936896685053}
+    index: 0
 --- !u!212 &7248429071418430212
 SpriteRenderer:
   serializedVersion: 2
