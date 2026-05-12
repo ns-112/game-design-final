@@ -41,25 +41,24 @@ public class BasicPlayer : MonoBehaviour
 
     void OnJump()
     {
-        // Normal ground jump
         if (self.canJump)
         {
             self.canJump = false;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
         }
-        // Wall jump
-        else if (self.properties.canWallClimb && self.canWC)
+        // wall jump only triggers if in the air AND touching a wall
+        else if (self.properties.canWallClimb && !self.canJump && !self.canDoubleJump)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
             if (self.wallLeft)
             {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
             }
             else if (self.wallRight)
             {
-                rb.AddForce(new Vector2(-self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
+              rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+              rb.AddForce(new Vector2(-self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
             }
         }
     }
