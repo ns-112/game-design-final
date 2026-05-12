@@ -41,7 +41,7 @@ public class Player
     public GameObject gameObject;
     
     public bool canJump = true;
-    public bool canWC = true;
+    public bool canWC = false;
     public bool canDoubleJump = true;
     public bool characterActive = true;
 

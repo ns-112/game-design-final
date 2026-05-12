@@ -48,7 +48,7 @@ public class BasicPlayer : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
         }
-        else if ((self.properties.canWallClimb && !self.canJump && !self.canDoubleJump) || self.canWC)
+        else if ((self.properties.canWallClimb && !self.canJump && !self.canDoubleJump) || (self.canWC && self.properties.canWallClimb))
         {
             if (self.wallLeft || self.canWC)
             {
