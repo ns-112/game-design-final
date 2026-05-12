@@ -55,6 +55,16 @@ public class PrefabData
     public List<string> Arguments;
 }
 
+[System.Serializable]
+public class TriggerData
+{
+    public int triggerIndex;
+    public Vector2 position;
+    public Vector2 scale;
+    public float rotation;
+    public List<string> Arguments;
+}
+
 //Contains data about the start, like player pos
 [System.Serializable]
 public class LevelStartData
@@ -87,6 +97,7 @@ public class GameLevel
     
     public List<LevelData> LevelSets = new();
     public List<PrefabData> Prefabs = new();
+    public List<PrefabData> Triggers = new();
 
 
     public string name;

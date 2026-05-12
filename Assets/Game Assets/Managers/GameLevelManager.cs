@@ -15,6 +15,7 @@ public class GameLevelManager : MonoBehaviour
 {
     public static GameLevelManager Instance { get; private set; }
     public GameObject PrefabRegistrar;
+    public GameObject TriggerReegistrar;
     public Dictionary<string, GameLevel> LevelDict = new Dictionary<string, GameLevel>();
     public GameLevel currentLevel; //NOT for creating new levels
 
@@ -172,6 +173,13 @@ public class GameLevelManager : MonoBehaviour
         {
             args.Add(pt.ActivateAmount.ToString()); //args[0]
             args.Add(pt.DeactivateAmount.ToString()); //args[1]
+        }
+
+        if (prefab.TryGetComponent(out LevelCamera lc))
+        {
+            args.Add(lc.radius.ToString());
+            args.Add(lc.startAngle.ToString());
+            args.Add(lc.endAngle.ToString());
         }
 
         currentLevel.Prefabs.Add(new PrefabData
@@ -392,7 +400,7 @@ public class GameLevelManager : MonoBehaviour
                     Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
                 }
 
-                if (int.TryParse(data.Arguments[0], out int res2))
+                if (int.TryParse(data.Arguments[1], out int res2))
                 {
                     tpt.DeactivateAmount = res2;
                 }
@@ -429,7 +437,7 @@ public class GameLevelManager : MonoBehaviour
                     Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
                 }
 
-                if (int.TryParse(data.Arguments[0], out int res2))
+                if (int.TryParse(data.Arguments[1], out int res2))
                 {
                     pt.DeactivateAmount = res2;
                 }
@@ -438,6 +446,33 @@ public class GameLevelManager : MonoBehaviour
                     Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
                 }
             } 
+
+            if (instance.TryGetComponent(out LevelCamera lc))
+            {
+                if (float.TryParse(data.Arguments[0], out float lcv1))
+                {
+                    lc.radius = lcv1;
+                }
+                {
+                    Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[1], out float lcv2))
+                {
+                    lc.startAngle = lcv2;
+                }
+                {
+                    Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[2], out float lcv3))
+                {
+                    lc.endAngle = lcv3;
+                }
+                {
+                    Debug.LogError("Argument[2] for " + data.prefabName + " failed to parse");
+                }
+            }
         }
     }
 
