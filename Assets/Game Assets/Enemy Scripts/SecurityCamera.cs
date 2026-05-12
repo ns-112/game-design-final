@@ -134,12 +134,4 @@ public class SecurityCamera : MonoBehaviour
     Debug.Log("Camera: Back online.");
   }
 
-  // draws detection and spawn radius in editor for tuning
-  void OnDrawGizmosSelected()
-  {
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawWireSphere(transform.position, detectionRadius);
-    Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, enemySpawnRadius);
-  }
 }
