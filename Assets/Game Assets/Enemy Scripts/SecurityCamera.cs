@@ -3,22 +3,11 @@ using UnityEngine;
 
 public class SecurityCamera : MonoBehaviour
 {
-  // detection radius for noticing players
   public float detectionRadius = 5f;
-
-  // how long before camera goes from detecting to alerted
   public float detectionTime = 4f;
-
-  // enemy prefab to spawn when alerted, drag in from Inspector
   public GameObject enemyPrefab;
-
-  // how many enemies to spawn on alert
   public int enemySpawnCount = 2;
-
-  // radius around camera to spawn enemies from
   public float enemySpawnRadius = 3f;
-
-  // delay between each enemy spawn
   public float spawnInterval = 5f;
 
   private CameraState state = CameraState.Surveying;
@@ -40,11 +29,9 @@ public class SecurityCamera : MonoBehaviour
 
       case CameraState.Alerted:
       case CameraState.Hacked:
-        // handled by coroutines or permanently disabled
         break;
     }
 
-    // check for hack input from Player2 when in range
     CheckForHack();
   }
 
@@ -79,7 +66,6 @@ public class SecurityCamera : MonoBehaviour
       }
     }
 
-    // player left the radius before timer finished, go back to surveying
     if (!playerInRange)
     {
       state = CameraState.Surveying;
@@ -133,9 +119,19 @@ public class SecurityCamera : MonoBehaviour
 
     if (dist <= detectionRadius)
     {
-      state = CameraState.Hacked;
-      Debug.Log("Camera: Hacked and disabled");
+      StartCoroutine(HackCamera());
     }
+  }
+
+  // disables the camera for 15 seconds then resumes surveying
+  IEnumerator HackCamera()
+  {
+    state = CameraState.Hacked;
+    Debug.Log("Camera: Hacked, disabled for 15 seconds.");
+    yield return new WaitForSeconds(15f);
+    state = CameraState.Surveying;
+    detectionTimer = 0f;
+    Debug.Log("Camera: Back online.");
   }
 
   // draws detection and spawn radius in editor for tuning
