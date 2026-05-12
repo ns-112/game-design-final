@@ -532,6 +532,8 @@ public class GameLevelManager : MonoBehaviour
     {
         bool inEditor = Application.isPlaying;
         IsLoadingLevel = true;
+
+        PlayerManager.Instance.ActivePlayer = PlayerType.Player1;
         
         //Camera.GetComponent<Camera>().orthographic = false;
         RefilTileDicts();
