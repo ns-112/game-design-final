@@ -45,7 +45,7 @@ public class GameLevelManager : MonoBehaviour
     public GameObject Camera;
 
 
-
+    public bool IsLoadingLevel;
 
 
     public float Timer1;
@@ -530,6 +530,10 @@ public class GameLevelManager : MonoBehaviour
 
     public void LoadGameLevel(string levelName)
     {
+        bool inEditor = Application.isPlaying;
+        IsLoadingLevel = true;
+        
+        //Camera.GetComponent<Camera>().orthographic = false;
         RefilTileDicts();
         RefilPrefabDicts();
         LoadAllLevelsFromFolder();
@@ -555,11 +559,11 @@ public class GameLevelManager : MonoBehaviour
 
         foreach (var go in children)
         {
-            #if !UNITY_EDITOR
+            if (!inEditor)
                 Destroy(go);
-            #else
+            else
                 DestroyImmediate(go);
-            #endif
+            
         }
         LoadPrefabs();
 
@@ -593,11 +597,24 @@ public class GameLevelManager : MonoBehaviour
             };
         }
 
+        StartCoroutine(FinishLoad());
+
         #if DEBUG
         Debug.Log("Loaded level: " + levelName);
         #endif
+        
 
+    }
 
+    private IEnumerator FinishLoad()
+    {
+        yield return null; // critical: lets TMP/UI settle
+
+        Camera.GetComponent<CameraSmoothFollow>().PauseCamera = false;
+        Camera.GetComponent<CameraSmoothFollow>().CameraReady = true;
+
+        IsLoadingLevel = false;
+        //Camera.GetComponent<Camera>().orthographic = true;
     }
 
 
