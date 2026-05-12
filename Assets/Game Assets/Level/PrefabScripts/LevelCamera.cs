@@ -33,7 +33,7 @@ public class LevelCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        DrawVisionCone();
+        //DrawVisionCone();
     }
 
     public bool CanSeePlayer(GameObject player)

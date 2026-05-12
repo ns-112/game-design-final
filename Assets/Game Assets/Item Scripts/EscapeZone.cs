@@ -24,7 +24,7 @@ public class EscapeZone : MonoBehaviour
       {
 		GameLevelManager.Instance.Camera.GetComponent<CameraSmoothFollow>().PauseCamera = true;
 		GameLevelManager.Instance.Camera.GetComponent<CameraSmoothFollow>().CameraReady = false;
-		Destroy(player.heldItem);
+		Destroy(player.heldItem.gameObject);
         EscapeTimer.Instance.StopTimer();
         LevelComplete();
       }

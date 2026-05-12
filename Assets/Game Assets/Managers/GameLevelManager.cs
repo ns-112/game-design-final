@@ -560,9 +560,9 @@ public class GameLevelManager : MonoBehaviour
         foreach (var go in children)
         {
             if (!inEditor)
-                Destroy(go);
-            else
                 DestroyImmediate(go);
+            else
+                Destroy(go);
             
         }
         LoadPrefabs();

@@ -33,6 +33,7 @@ public class BasicPlayer : MonoBehaviour
     //Called on the first frame
     void Start()
     {
+        if (playerType == PlayerType.Player1) self.properties.canWallClimb = true;
         PlayerManager.Instance.Players[playerType] = self;
         rb.mass = self.properties.weight / 2;
 
@@ -47,15 +48,14 @@ public class BasicPlayer : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
         }
-        // wall jump only triggers if in the air AND touching a wall
-        else if (self.properties.canWallClimb && !self.canJump && !self.canDoubleJump)
+        else if ((self.properties.canWallClimb && !self.canJump && !self.canDoubleJump) || self.canWC)
         {
-            if (self.wallLeft)
+            if (self.wallLeft || self.canWC)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
                 rb.AddForce(new Vector2(self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
             }
-            else if (self.wallRight)
+            else if (self.wallRight || self.canWC)
             {
               rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
               rb.AddForce(new Vector2(-self.properties.moveSpeed, self.properties.jumpHeight), ForceMode2D.Impulse);
@@ -93,7 +93,7 @@ public class BasicPlayer : MonoBehaviour
 
     void Update()
     {
-        debug = self.characterActive;
+        debug = self.canWC;
         if (PlayerManager.Instance.ActivePlayer == self.playerType)
         {
             if (PlayerManager.Instance.jump.IsPressed())
