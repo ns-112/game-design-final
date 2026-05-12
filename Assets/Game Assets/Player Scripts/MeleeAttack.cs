@@ -44,10 +44,11 @@ public class MeleeAttack : MonoBehaviour
     {
       GuardDog dog = hit.GetComponent<GuardDog>();
       if (dog != null)
-      {
         dog.KnockOut();
-        Debug.Log("Guard dog knocked out.");
-      }
+
+      SecurityGuard guard = hit.GetComponent<SecurityGuard>();
+      if (guard != null)
+        guard.KnockOut();
     }
 
     yield return new WaitForSeconds(attackCooldown);
