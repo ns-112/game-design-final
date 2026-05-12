@@ -19,13 +19,30 @@ public class LevelCamera : MonoBehaviour
     [Header("Debug")]
     public bool drawDebug = true;
 
+    Mesh visionMesh;
+    MeshFilter meshFilter;
+    MeshRenderer meshRenderer;
+
+    public int rayCount = 100;
+
+    void Start()
+    {
+        visionMesh = new Mesh();
+        meshFilter.mesh = visionMesh;
+    }
+
+    void LateUpdate()
+    {
+        DrawVisionCone();
+    }
+
     public bool CanSeePlayer(GameObject player)
     {
         Vector2 origin = transform.position;
-        Vector2 dirToPlayer =
-            (player.transform.position - transform.position);
+        Vector2 dirToPlayer = (player.transform.position - transform.position);
 
         float distance = dirToPlayer.magnitude;
+        
 
         if (distance > radius)
             return false;
@@ -91,22 +108,14 @@ public class LevelCamera : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(origin, radius);
 
-        Vector2 startDir =
-            DirectionFromAngle(startAngle);
+        Vector2 startDir = DirectionFromAngle(startAngle);
 
-        Vector2 endDir =
-            DirectionFromAngle(endAngle);
+        Vector2 endDir = DirectionFromAngle(endAngle);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(
-            origin,
-            origin + (Vector3)(startDir * radius)
-        );
+        Gizmos.DrawLine(origin, origin + (Vector3)(startDir * radius));
 
-        Gizmos.DrawLine(
-            origin,
-            origin + (Vector3)(endDir * radius)
-        );
+        Gizmos.DrawLine(origin, origin + (Vector3)(endDir * radius));
     }
 
 
@@ -121,7 +130,7 @@ public class LevelCamera : MonoBehaviour
             }
             else
             {
-                hitTimer--;
+                hitTimer -= Time.deltaTime;
             }
             
         } else
@@ -129,4 +138,67 @@ public class LevelCamera : MonoBehaviour
             hitTimer = 1;
         }
     }
+
+
+
+
+
+
+    void DrawVisionCone()
+    {
+        float angleSize = GetAngleSize();
+
+        Vector3[] vertices = new Vector3[rayCount + 2];
+        int[] triangles = new int[rayCount * 3];
+
+        vertices[0] = Vector3.zero;
+
+        float angleStep = angleSize / rayCount;
+
+        for (int i = 0; i <= rayCount; i++)
+        {
+            float angle = startAngle + angleStep * i;
+
+            Vector2 dir = DirectionFromAngle(angle);
+
+            RaycastHit2D hit = Physics2D.Raycast(
+                transform.position,
+                dir,
+                radius,
+                wallMask
+            );
+
+            Vector3 point;
+
+            if (hit.collider != null)
+            {
+                point = transform.InverseTransformPoint(hit.point);
+            }
+            else
+            {
+                point = dir * radius;
+            }
+
+            vertices[i + 1] = point;
+        }
+
+        int triangleIndex = 0;
+
+        for (int i = 0; i < rayCount; i++)
+        {
+            triangles[triangleIndex + 0] = 0;
+            triangles[triangleIndex + 1] = i + 1;
+            triangles[triangleIndex + 2] = i + 2;
+
+            triangleIndex += 3;
+        }
+
+        visionMesh.Clear();
+
+        visionMesh.vertices = vertices;
+        visionMesh.triangles = triangles;
+    }
+
+
+
 }

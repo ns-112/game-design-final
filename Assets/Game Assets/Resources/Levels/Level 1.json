@@ -1,0 +1,514 @@
+{
+    "StartData": {
+        "P1Start": {
+            "x": -5.0,
+            "y": 0.0
+        },
+        "P2Start": {
+            "x": 5.0,
+            "y": 0.0
+        },
+        "P1Active": true,
+        "P2Active": true,
+        "CameraStart": 0,
+        "TimerLength": 0.0
+    },
+    "LevelSets": [
+        {
+            "type": 0,
+            "tiles": [
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -10,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -9,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -8,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -7,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -6,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -5,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -4,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -3,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -2,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -1,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 0,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 1,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 2,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 3,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 4,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 5,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 6,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 7,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 8,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 9,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 10,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 11,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 12,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 13,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 14,
+                        "y": -3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -10,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 14,
+                        "y": -2
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 14,
+                        "y": -1
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 15,
+                        "y": 0
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 15,
+                        "y": 1
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 15,
+                        "y": 2
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 15,
+                        "y": 3
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -11,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -10,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -9,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -8,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -7,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -6,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -5,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -4,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -3,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -2,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": -1,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 1,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 2,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 3,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 4,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 5,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 6,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 7,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 8,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 9,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 10,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 11,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 12,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 13,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 14,
+                        "y": 4
+                    }
+                },
+                {
+                    "textureIndex": 0,
+                    "position": {
+                        "x": 15,
+                        "y": 4
+                    }
+                }
+            ]
+        },
+        {
+            "type": 1,
+            "tiles": []
+        },
+        {
+            "type": 5,
+            "tiles": []
+        }
+    ],
+    "Prefabs": [
+        {
+            "prefabIndex": 0,
+            "prefabName": "EscapeZone",
+            "position": {
+                "x": -10.130000114440918,
+                "y": -0.5799999833106995
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": [
+                "Tutorial"
+            ]
+        },
+        {
+            "prefabIndex": 6,
+            "prefabName": "GoalItem1",
+            "position": {
+                "x": 10.819526672363282,
+                "y": -1.2729883193969727
+            },
+            "zLayer": 0,
+            "rotation": 0.0,
+            "Arguments": []
+        }
+    ],
+    "Triggers": [],
+    "name": "Level 1"
+}

@@ -43,7 +43,7 @@ public class Player
     public bool canJump = true;
     public bool canWC = true;
     public bool canDoubleJump = true;
-    public bool characterActive = false;
+    public bool characterActive = true;
 
     public bool wallLeft = false;
     public bool wallRight = false;
@@ -126,17 +126,32 @@ public class PlayerManager : MonoBehaviour
             switch_player = actionMap.FindAction("SwitchCharacter");
 
             actionMap.Enable();
+
+            Players = new Dictionary<PlayerType, Player>
+            {
+                { PlayerType.Player1, new Player(PlayerType.Player1) },
+                { PlayerType.Player2, new Player(PlayerType.Player2) }
+            };
         }
     }
 
     void SwapPlayers()
     {
-        if (ActivePlayer == PlayerType.Player1 && Players[PlayerType.Player2].characterActive)
+        PlayerType target =
+            ActivePlayer == PlayerType.Player1
+            ? PlayerType.Player2
+            : PlayerType.Player1;
+
+        Debug.Log(
+            $"Trying to swap to {target} | " +
+            $"characterActive = {Players[target].characterActive}"
+        );
+
+        if (Players[target].characterActive)
         {
-            ActivePlayer = PlayerType.Player2;
-        } else if (Players[PlayerType.Player1].characterActive)
-        {
-            ActivePlayer = PlayerType.Player1;
+            ActivePlayer = target;
+
+            Debug.Log($"Swapped to {ActivePlayer}");
         }
     }
     

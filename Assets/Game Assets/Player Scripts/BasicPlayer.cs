@@ -8,7 +8,7 @@ public class BasicPlayer : MonoBehaviour
     //private float moveSpeed = 8f;
 
     public PlayerType playerType;
-    private Player self;
+    private Player self => PlayerManager.Instance.Players[playerType];
 
     private Vector3 startPos;
 
@@ -25,10 +25,7 @@ public class BasicPlayer : MonoBehaviour
         startPos = transform.position;
         rb = GetComponent<Rigidbody2D>();
 
-        self = new(playerType)
-        {
-            gameObject = gameObject
-        };
+        
         
         
     }
@@ -38,6 +35,8 @@ public class BasicPlayer : MonoBehaviour
     {
         PlayerManager.Instance.Players[playerType] = self;
         rb.mass = self.properties.weight / 2;
+
+        PlayerManager.Instance.Players[playerType].gameObject = gameObject;
     }
 
     void OnJump()
@@ -95,7 +94,7 @@ public class BasicPlayer : MonoBehaviour
 
     void Update()
     {
-        debug = self.canWC;
+        debug = self.characterActive;
         if (PlayerManager.Instance.ActivePlayer == self.playerType)
         {
             if (PlayerManager.Instance.jump.IsPressed())

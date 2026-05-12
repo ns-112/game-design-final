@@ -1,5 +1,15 @@
 using UnityEngine;
 
+[System.Serializable]
+public enum ToLevel
+{
+	Tutorial,
+	Level1,
+	Level2,
+	Level3,
+	Level4
+};
+
 public class MoneySystem : MonoBehaviour
 {
   public static MoneySystem Instance;
@@ -9,6 +19,8 @@ public class MoneySystem : MonoBehaviour
 
   // percentage of starting money deducted per hit, set to 15%
   public float penaltyPercent = 0.15f;
+
+  public ToLevel toLevel;
 
   // tracks money remaining this level
   public float CurrentMoney { get; private set; }
@@ -41,17 +53,36 @@ public class MoneySystem : MonoBehaviour
   {
     TotalMoney += CurrentMoney;
     Debug.Log($"Level complete. Earned: {CurrentMoney}, Total: {TotalMoney}");
+    switch (toLevel) {
+      case ToLevel.Tutorial:
+      GameLevelManager.Instance.LoadGameLevel("Tutorial");
+      break;
+      case ToLevel.Level1:
+      GameLevelManager.Instance.LoadGameLevel("Level 1");
+      break;
+      case ToLevel.Level2:
+      GameLevelManager.Instance.LoadGameLevel("Level 2");
+      break;
+      case ToLevel.Level3:
+      GameLevelManager.Instance.LoadGameLevel("Level 3");
+      break;
+      case ToLevel.Level4:
+      GameLevelManager.Instance.LoadGameLevel("Level 4");
+      break;
+    }
   }
 
   // resets money for the current level on game over
   public void ResetLevel()
   {
     CurrentMoney = levelStartMoney;
+    GameLevelManager.Instance.LoadGameLevel(GameLevelManager.Instance.currentLevel.name);
   }
 
   // hook into scene transition later
   void GameOver()
   {
     Debug.Log("No money left. Game Over.");
+    ResetLevel();
   }
 }

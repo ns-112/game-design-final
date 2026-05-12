@@ -1,12 +1,12 @@
 {
     "StartData": {
         "P1Start": {
-            "x": -8.800000190734864,
-            "y": -2.859999895095825
+            "x": -9.050000190734864,
+            "y": -3.180000066757202
         },
         "P2Start": {
             "x": 33.189998626708987,
-            "y": 13.1899995803833
+            "y": 13.260000228881836
         },
         "P1Active": true,
         "P2Active": false,
@@ -10611,13 +10611,6 @@
                 {
                     "textureIndex": 6,
                     "position": {
-                        "x": 59,
-                        "y": 8
-                    }
-                },
-                {
-                    "textureIndex": 6,
-                    "position": {
                         "x": 60,
                         "y": 8
                     }
@@ -16363,7 +16356,7 @@
             "prefabName": "label1",
             "position": {
                 "x": -12.859999656677246,
-                "y": -3.009999990463257
+                "y": -3.029599905014038
             },
             "zLayer": 0,
             "rotation": 0.0,
@@ -16406,40 +16399,27 @@
             },
             "zLayer": 0,
             "rotation": 90.0,
-            "Arguments": []
+            "Arguments": [
+                "Level1"
+            ]
         },
         {
             "prefabIndex": 11,
             "prefabName": "PlayerswapTrigger",
             "position": {
-                "x": 49.540000915527347,
-                "y": 9.0
+                "x": 49.060001373291019,
+                "y": 9.069999694824219
             },
             "zLayer": 0,
             "rotation": 0.0,
             "Arguments": [
                 "1",
-                "1",
+                "0",
                 "1",
                 "1"
-            ]
-        },
-        {
-            "prefabIndex": 12,
-            "prefabName": "LevelCamera",
-            "position": {
-                "x": 75.41000366210938,
-                "y": 11.5
-            },
-            "zLayer": 0,
-            "rotation": 0.0,
-            "Arguments": [
-                "7.85",
-                "-109",
-                "-33"
             ]
         }
     ],
     "Triggers": [],
-    "name": "Tutorial 2"
+    "name": "Tutorial"
 }

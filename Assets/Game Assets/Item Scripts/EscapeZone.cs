@@ -1,8 +1,15 @@
 using UnityEngine;
 
+
+
 public class EscapeZone : MonoBehaviour
 {
+	public ToLevel toLevel = ToLevel.Level1;
   // triggered when a player enters the exit zone
+  	void Start()
+	{
+		MoneySystem.Instance.toLevel = toLevel;
+	}
   void OnTriggerEnter2D(Collider2D other)
   {
     BasicPlayer bp = other.GetComponent<BasicPlayer>();
@@ -26,5 +33,11 @@ public class EscapeZone : MonoBehaviour
   {
     MoneySystem.Instance.LevelComplete();
     Debug.Log("Level Complete!");
+
+	
+		
+	
+
+	
   }
 }

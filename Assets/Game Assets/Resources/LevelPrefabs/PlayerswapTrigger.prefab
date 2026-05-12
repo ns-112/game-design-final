@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrefabIdentifier
   basePrefab:
-    prefab: {fileID: 6214204373600390199}
+    prefab: {fileID: 0}
     index: 11
 --- !u!114 &5640190571147895677
 MonoBehaviour:

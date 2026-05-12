@@ -25,7 +25,7 @@ public class GameLevelManager : MonoBehaviour
     Dictionary<TileBase, int> tileToIndex;
     Dictionary<int, TileBase> indexToTile;
 
-
+    [SerializeField]
     Dictionary<GameObject, int> prefabToIndex;
     Dictionary<int, GameObject> indexToPrefab;
 
@@ -159,6 +159,10 @@ public class GameLevelManager : MonoBehaviour
         }
 
         List<string> args = new List<string>();
+        if (prefab.TryGetComponent(out EscapeZone esc))
+        {
+            args.Add(esc.toLevel.ToString()); //args[0]
+        }
 
         if (prefab.TryGetComponent(out TextMeshPro tmp))
         {
@@ -229,7 +233,7 @@ public class GameLevelManager : MonoBehaviour
             prefabLookup.Add(entry.prefab);
             
             #if DEBUG
-            Debug.Log($"Registered prefab: {indexToPrefab[entry.index].name}({indexToPrefab[entry.index].GetHashCode()}) -> {prefabToIndex[entry.prefab]}");
+            Debug.Log($"{entry.prefab} {entry.index} Registered prefab: {indexToPrefab[entry.index].name}({indexToPrefab[entry.index].GetHashCode()}) -> {prefabToIndex[entry.prefab]}");
             #endif
         }
     }
@@ -386,6 +390,19 @@ public class GameLevelManager : MonoBehaviour
             instance.GetComponent<PrefabIdentifier>().basePrefab.index = data.prefabIndex;
             instance.GetComponent<PrefabIdentifier>().basePrefab.prefab = prefab;
 
+
+            if (instance.TryGetComponent(out EscapeZone esc))
+            {
+                if (Enum.TryParse(data.Arguments[0], out ToLevel tl1))
+                {
+                    esc.toLevel = tl1;
+                }
+                else
+                {
+                    Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
+                }
+            }
+
             if (instance.TryGetComponent(out TextMeshPro tmp))
             {
                 tmp.text = data.Arguments[0];
@@ -452,23 +469,23 @@ public class GameLevelManager : MonoBehaviour
                 if (float.TryParse(data.Arguments[0], out float lcv1))
                 {
                     lc.radius = lcv1;
-                }
+                } else
                 {
                     Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
                 }
 
-                if (float.TryParse(data.Arguments[1], out float lcv2))
+                if (int.TryParse(data.Arguments[1], out int lcv2))
                 {
                     lc.startAngle = lcv2;
-                }
+                } else
                 {
                     Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
                 }
 
-                if (float.TryParse(data.Arguments[2], out float lcv3))
+                if (int.TryParse(data.Arguments[2], out int lcv3))
                 {
                     lc.endAngle = lcv3;
-                }
+                } else
                 {
                     Debug.LogError("Argument[2] for " + data.prefabName + " failed to parse");
                 }
@@ -548,11 +565,9 @@ public class GameLevelManager : MonoBehaviour
 
         Player1.transform.position = new Vector3(found.StartData.P1Start.x, found.StartData.P1Start.y, 0);
         Player2.transform.position = new Vector3(found.StartData.P2Start.x, found.StartData.P2Start.y, 0);
-        
-        #if !UNITY_EDITOR
-            PlayerManager.Instance.Players[PlayerType.Player1].characterActive = found.StartData.P1Active;
-            PlayerManager.Instance.Players[PlayerType.Player2].characterActive = found.StartData.P2Active;
-        #endif
+        Debug.Log($"p1 active {found.StartData.P1Active}");
+        Debug.Log($"p2 active {found.StartData.P2Active}");
+       
         currentLevel.StartData = found.StartData;
         
         switch (found.StartData.CameraStart)
@@ -566,13 +581,17 @@ public class GameLevelManager : MonoBehaviour
             break;
         }
 
-        #if !UNITY_EDITOR
+        if (Application.isPlaying)
+        {
+            PlayerManager.Instance.Players[PlayerType.Player1].characterActive = found.StartData.P1Active;
+            PlayerManager.Instance.Players[PlayerType.Player2].characterActive = found.StartData.P2Active;
+
             PlayerManager.Instance.levelOptions = new LevelOptions
             {
                 P1Locked = !found.StartData.P1Active,
                 P2Locked = !found.StartData.P2Active
             };
-        #endif
+        }
 
         #if DEBUG
         Debug.Log("Loaded level: " + levelName);
