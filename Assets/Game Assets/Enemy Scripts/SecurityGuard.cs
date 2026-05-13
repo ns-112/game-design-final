@@ -215,19 +215,4 @@ public class SecurityGuard : MonoBehaviour
     Debug.Log("Guard: Back on patrol");
   }
 
-  // draws vision cone and patrol points in editor for tuning
-  void OnDrawGizmosSelected()
-  {
-    // vision range circle
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawWireSphere(transform.position, visionRange);
-
-    // vision cone lines
-    Vector3 facing = transform.right * transform.localScale.x;
-    Vector3 coneLeft = Quaternion.Euler(0, 0, visionAngle / 2f) * facing * visionRange;
-    Vector3 coneRight = Quaternion.Euler(0, 0, -visionAngle / 2f) * facing * visionRange;
-    Gizmos.color = Color.cyan;
-    Gizmos.DrawLine(transform.position, transform.position + coneLeft);
-    Gizmos.DrawLine(transform.position, transform.position + coneRight);
-  }
 }
