@@ -712,6 +712,30 @@ public class GameLevelManager : MonoBehaviour
         ActiveLabels.Add(newLabel);
     }
 
+    void CreateLastLevelLabels()
+    {
+        if (newLabelReady && labelIndex <= 2)
+        {
+            switch (labelIndex)
+            {
+                case 0:
+                CreateLabel("Time: " + (EscapeTimer.Instance.escapeTime - EscapeTimer.Instance.timeRemaining).ToString() + "s", new Vector2(0, 55));
+                break;
+
+                case 1:
+                CreateLabel("Level Score: $" + MoneySystem.Instance.CurrentMoney.ToString(), new Vector2(0, 0));
+                break;
+
+                case 2:
+                CreateLabel("Total Score: $" + MoneySystem.Instance.TotalMoney.ToString(), new Vector2(0, -55));
+                CurrentTransitionState = TransitionState.ReadyToExitLabels;
+                Timer1 = 5;
+                break;
+            }
+            labelIndex++;
+        }
+    }
+
     void CreateLevelLabels()
     {
         if (newLabelReady && labelIndex <= 2)
