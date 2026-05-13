@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -3636,8 +3636,8 @@ TextureImporter:
       name: tileset_116
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 288
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -3662,7 +3662,7 @@ TextureImporter:
       name: tileset_117
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 32
         width: 32
         height: 32
@@ -3688,7 +3688,7 @@ TextureImporter:
       name: tileset_118
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 32
         width: 32
         height: 32
@@ -3714,7 +3714,7 @@ TextureImporter:
       name: tileset_119
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 32
         width: 32
         height: 32
@@ -3751,7 +3751,7 @@ TextureImporter:
       name: tileset_120
       rect:
         serializedVersion: 2
-        x: 128
+        x: 96
         y: 32
         width: 32
         height: 32
@@ -3790,7 +3790,7 @@ TextureImporter:
       name: tileset_121
       rect:
         serializedVersion: 2
-        x: 160
+        x: 128
         y: 32
         width: 32
         height: 32
@@ -3827,7 +3827,7 @@ TextureImporter:
       name: tileset_122
       rect:
         serializedVersion: 2
-        x: 192
+        x: 160
         y: 32
         width: 32
         height: 32
@@ -3861,7 +3861,7 @@ TextureImporter:
       name: tileset_123
       rect:
         serializedVersion: 2
-        x: 224
+        x: 192
         y: 32
         width: 32
         height: 32
@@ -3895,7 +3895,7 @@ TextureImporter:
       name: tileset_124
       rect:
         serializedVersion: 2
-        x: 256
+        x: 224
         y: 32
         width: 32
         height: 32
@@ -3921,8 +3921,8 @@ TextureImporter:
       name: tileset_125
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 256
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -3947,8 +3947,8 @@ TextureImporter:
       name: tileset_126
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 288
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -3973,7 +3973,7 @@ TextureImporter:
       name: tileset_127
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 0
         width: 32
         height: 32
@@ -3999,7 +3999,7 @@ TextureImporter:
       name: tileset_128
       rect:
         serializedVersion: 2
-        x: 96
+        x: 32
         y: 0
         width: 32
         height: 32
@@ -4032,7 +4032,7 @@ TextureImporter:
       name: tileset_129
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 0
         width: 32
         height: 32
@@ -4059,7 +4059,7 @@ TextureImporter:
       name: tileset_130
       rect:
         serializedVersion: 2
-        x: 160
+        x: 96
         y: 0
         width: 32
         height: 32
@@ -4111,7 +4111,7 @@ TextureImporter:
       name: tileset_131
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 0
         width: 32
         height: 32
@@ -4142,7 +4142,7 @@ TextureImporter:
       name: tileset_132
       rect:
         serializedVersion: 2
-        x: 224
+        x: 160
         y: 0
         width: 32
         height: 32
@@ -4169,7 +4169,7 @@ TextureImporter:
       name: tileset_133
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 0
         width: 32
         height: 32
@@ -4193,6 +4193,50 @@ TextureImporter:
       bones: []
       spriteID: 91c58c147ff80a34b92abd19602f32b9
       internalID: 394992731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_134
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bfea0b84cbf70d4fbb77b036843a284
+      internalID: 1555964723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_135
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4af8ebb95a32e014a994f58152ff6c2c
+      internalID: 31544670
       vertices: []
       indices: 
       edges: []
@@ -4255,6 +4299,8 @@ TextureImporter:
       tileset_131: 376869557
       tileset_132: -609752203
       tileset_133: 394992731
+      tileset_134: 1555964723
+      tileset_135: 31544670
       tileset_14: -1766295806
       tileset_15: -2135013452
       tileset_16: -840492778

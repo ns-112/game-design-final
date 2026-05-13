@@ -94,12 +94,12 @@ public class SecurityCamera : MonoBehaviour
         Vector2 spawnOffset = Random.insideUnitCircle * enemySpawnRadius;
         Vector3 spawnPos = transform.position + new Vector3(spawnOffset.x, 0, 0);
 
-        RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, 20f);
-        if (hit.collider != null)
-        {
-          spawnPos = hit.point;
-          Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        }
+        //RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, 20f);
+        //if (hit.collider != null)
+        //{
+        //  spawnPos = hit.point;
+        //  Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        //}
       }
       yield return new WaitForSeconds(spawnInterval);
     }

@@ -8,6 +8,19 @@ using System;
 using System.Linq;
 using TMPro;
 using System.Collections;
+using UnityEditorInternal;
+
+public enum TransitionState
+{
+    ReadyToEnter,
+    Entering,
+    ReadyForLabels,
+    LabelsEntering,
+    ReadyToExitLabels,
+    ExitingLabels,
+    ReadyToExit,
+    Exiting,
+}
 
 //Contains data for the currently loaded level, like timers
 //Add in menu and use to load levels when needed
@@ -74,7 +87,7 @@ public class GameLevelManager : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-
+        TransitionPanelAnimator = TransitionPanel.GetComponent<Animator>();
         LoadGameLevel(currentLevel.name);
     }
 
@@ -534,8 +547,7 @@ public class GameLevelManager : MonoBehaviour
         IsLoadingLevel = true;
         if (!inEditor && PlayerManager.Instance != null)
             PlayerManager.Instance.ActivePlayer = PlayerType.Player1;
-        
-        //Camera.GetComponent<Camera>().orthographic = false;
+ 
         RefilTileDicts();
         RefilPrefabDicts();
         LoadAllLevelsFromFolder();
@@ -610,15 +622,164 @@ public class GameLevelManager : MonoBehaviour
 
     private IEnumerator FinishLoad()
     {
-        yield return null; // critical: lets TMP/UI settle
+        yield return null; 
 
         Camera.GetComponent<CameraSmoothFollow>().PauseCamera = false;
         Camera.GetComponent<CameraSmoothFollow>().CameraReady = true;
 
         IsLoadingLevel = false;
-        //Camera.GetComponent<Camera>().orthographic = true;
     }
 
+
+    [Header("Transition")]
+    public GameObject TransitionPanel;
+    private Animator TransitionPanelAnimator;
+    public GameObject LabelPrefab;
+    public List<GameObject> ActiveLabels = new();
+    public TransitionState CurrentTransitionState = TransitionState.ReadyToEnter;
+    public bool isGameEnd = false;
+    public bool newLabelReady = true;
+    public int labelIndex = 0;
+    public ToLevel nextLevel = ToLevel.Level1;
+
+    void Update()
+    {
+        switch (CurrentTransitionState)
+        {
+            case TransitionState.ReadyToEnter:
+            //Waiting State
+            //Changed via OverlayScript.cs
+            break;
+
+            case TransitionState.Entering:
+            //Changed via OverlayScript.cs
+            break;
+
+            case TransitionState.ReadyForLabels:
+            SwitchLevel(nextLevel);
+            CurrentTransitionState = TransitionState.LabelsEntering;
+            break;
+
+            case TransitionState.LabelsEntering:
+            if (!isGameEnd)
+            {
+                CreateLevelLabels();
+            }
+            break;
+
+            case TransitionState.ReadyToExitLabels:
+            if (Timer1 <= 0)
+            {
+                ExitLabels();
+            } else
+            {
+                Timer1 -= Time.deltaTime;
+                labelIndex = 0;
+            }
+            break;
+
+            case TransitionState.ExitingLabels:
+            if (ActiveLabels.Count == 0)
+            {
+                CurrentTransitionState = TransitionState.ReadyToExit;
+            }
+            break;
+
+            case TransitionState.ReadyToExit:
+            TransitionPanelAnimator.SetBool("levelOver", false);
+            break;
+
+            case TransitionState.Exiting:
+            break;
+        }
+    }
+
+    public void ExitLabels()
+    {
+        foreach (var label in ActiveLabels)
+        {
+            label.transform.GetChild(0).GetComponent<LabelScript>().KillLabel();
+        }
+        CurrentTransitionState = TransitionState.ExitingLabels;
+    }
+
+    public void CreateLabel(string label, Vector2 position)
+    {
+        newLabelReady = false;
+        GameObject newLabel = Instantiate(LabelPrefab, TransitionPanel.transform.parent);
+        newLabel.transform.localPosition = new(position.x, position.y, 5);
+        newLabel.transform.GetChild(0).GetComponent<LabelScript>().StartLabel(label, position);
+        ActiveLabels.Add(newLabel);
+    }
+
+    void CreateLevelLabels()
+    {
+        if (newLabelReady && labelIndex <= 2)
+        {
+            switch (labelIndex)
+            {
+                case 0:
+                CreateLabel("Time: " + (EscapeTimer.Instance.escapeTime - EscapeTimer.Instance.timeRemaining).ToString() + "s", new Vector2(0, 55));
+                break;
+
+                case 1:
+                CreateLabel("Level Score: $" + MoneySystem.Instance.CurrentMoney.ToString(), new Vector2(0, 0));
+                break;
+
+                case 2:
+                CreateLabel("Total Score: $" + MoneySystem.Instance.TotalMoney.ToString(), new Vector2(0, -55));
+                CurrentTransitionState = TransitionState.ReadyToExitLabels;
+                Timer1 = 5;
+                break;
+            }
+            labelIndex++;
+        }
+    }
+   
+    
+
+    public void DestroyLabel(GameObject label)
+    {
+        label.GetComponent<LabelScript>().KillLabel();
+    }
+
+
+
+
+    public void LevelComplete()
+    {
+        TransitionPanelAnimator.SetBool("levelOver", true);
+        
+    }
+
+    public void SwitchLevel(ToLevel next)
+    {
+        switch (next)
+        {
+            case ToLevel.Tutorial:
+                LoadGameLevel("Tutorial");
+                break;
+
+            case ToLevel.Level1:
+                LoadGameLevel("Level 1");
+                break;
+
+            case ToLevel.Level2:
+                LoadGameLevel("Level 2");
+                break;
+
+            case ToLevel.Level3:
+                LoadGameLevel("Level 3");
+                break;
+
+            case ToLevel.Level4:
+                LoadGameLevel("Level 4");
+                break;
+        }
+    }
+
+    
+    
 
 }
 
@@ -629,7 +790,7 @@ public class GameLevelManager : MonoBehaviour
 [CustomEditor(typeof(GameLevelManager))]
 public class GameLevelManagerEditor : Editor
 {
-
+    [Header("Editor")]
     private string saveName = "";
     private string loadLabel = "Load levels";
     private int selectedIndex = 0;

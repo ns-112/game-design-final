@@ -15,7 +15,7 @@ public class EscapeTimer : MonoBehaviour
   public bool TimerRunning { get; private set; }
 
   // current time left on the escape countdown
-  private float timeRemaining;
+  public float timeRemaining;
 
   // reference to the active floor return coroutine so it can be cancelled on another pickup
   private Coroutine floorCoroutine;

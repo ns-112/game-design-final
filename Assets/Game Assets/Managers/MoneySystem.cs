@@ -52,24 +52,11 @@ public class MoneySystem : MonoBehaviour
   public void LevelComplete()
   {
     TotalMoney += CurrentMoney;
+    EscapeTimer.Instance.StopTimer();
     Debug.Log($"Level complete. Earned: {CurrentMoney}, Total: {TotalMoney}");
-    switch (toLevel) {
-      case ToLevel.Tutorial:
-      GameLevelManager.Instance.LoadGameLevel("Tutorial");
-      break;
-      case ToLevel.Level1:
-      GameLevelManager.Instance.LoadGameLevel("Level 1");
-      break;
-      case ToLevel.Level2:
-      GameLevelManager.Instance.LoadGameLevel("Level 2");
-      break;
-      case ToLevel.Level3:
-      GameLevelManager.Instance.LoadGameLevel("Level 3");
-      break;
-      case ToLevel.Level4:
-      GameLevelManager.Instance.LoadGameLevel("Level 4");
-      break;
-    }
+    
+		GameLevelManager.Instance.LevelComplete();
+    
   }
 
   // resets money for the current level on game over
