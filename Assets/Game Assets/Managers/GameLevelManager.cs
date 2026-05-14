@@ -192,11 +192,16 @@ public class GameLevelManager : MonoBehaviour
             args.Add(pt.DeactivateAmount.ToString()); //args[1]
         }
 
-        if (prefab.TryGetComponent(out LevelCamera lc))
+        if (prefab.TryGetComponent(out SecurityCamera scc))
         {
-            args.Add(lc.radius.ToString());
-            args.Add(lc.startAngle.ToString());
-            args.Add(lc.endAngle.ToString());
+            args.Add(scc.detectionRange.ToString());
+            args.Add(scc.startAngle.ToString());
+            args.Add(scc.enemySpawnCount.ToString());
+            args.Add(scc.enemySpawnRadius.ToString());
+            args.Add(scc.spawnInterval.ToString());
+            args.Add(scc.endAngle.ToString());
+            args.Add(scc.detectionTime.ToString());
+            args.Add(scc.hackRadius.ToString());
         }
 
         currentLevel.Prefabs.Add(new PrefabData
@@ -246,7 +251,7 @@ public class GameLevelManager : MonoBehaviour
             prefabLookup.Add(entry.prefab);
             
             #if DEBUG
-            Debug.Log($"{entry.prefab} {entry.index} Registered prefab: {indexToPrefab[entry.index].name}({indexToPrefab[entry.index].GetHashCode()}) -> {prefabToIndex[entry.prefab]}");
+            //Debug.Log($"{entry.prefab} {entry.index} Registered prefab: {indexToPrefab[entry.index].name}({indexToPrefab[entry.index].GetHashCode()}) -> {prefabToIndex[entry.prefab]}");
             #endif
         }
     }
@@ -286,7 +291,7 @@ public class GameLevelManager : MonoBehaviour
             if (pf != null)
             { 
                 #if DEBUG
-                Debug.Log($"Looking up prefab: {indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].name}({indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].GetHashCode()}) -> {prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab]}");
+                //Debug.Log($"Looking up prefab: {indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].name}({indexToPrefab[pf.GetComponent<PrefabIdentifier>().basePrefab.index].GetHashCode()}) -> {prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab]}");
                 #endif
                 pf.GetComponent<PrefabIdentifier>().basePrefab.index = prefabToIndex[pf.GetComponent<PrefabIdentifier>().basePrefab.prefab];
                 SavePrefab(pf);   
@@ -477,19 +482,19 @@ public class GameLevelManager : MonoBehaviour
                 }
             } 
 
-            if (instance.TryGetComponent(out LevelCamera lc))
+            if (instance.TryGetComponent(out SecurityCamera scc))
             {
                 if (float.TryParse(data.Arguments[0], out float lcv1))
                 {
-                    lc.radius = lcv1;
+                    scc.detectionRange = lcv1;
                 } else
                 {
                     Debug.LogError("Argument[0] for " + data.prefabName + " failed to parse");
                 }
 
-                if (int.TryParse(data.Arguments[1], out int lcv2))
+                if (float.TryParse(data.Arguments[1], out float lcv2))
                 {
-                    lc.startAngle = lcv2;
+                    scc.startAngle = lcv2;
                 } else
                 {
                     Debug.LogError("Argument[1] for " + data.prefabName + " failed to parse");
@@ -497,10 +502,50 @@ public class GameLevelManager : MonoBehaviour
 
                 if (int.TryParse(data.Arguments[2], out int lcv3))
                 {
-                    lc.endAngle = lcv3;
+                    scc.enemySpawnCount = lcv3;
                 } else
                 {
                     Debug.LogError("Argument[2] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[3], out float lcv4))
+                {
+                    scc.enemySpawnRadius = lcv3;
+                } else
+                {
+                    Debug.LogError("Argument[3] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[4], out float lcv5))
+                {
+                    scc.spawnInterval = lcv4;
+                } else
+                {
+                    Debug.LogError("Argument[4] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[5], out float lcv6))
+                {
+                    scc.endAngle = lcv6;
+                } else
+                {
+                    Debug.LogError("Argument[5] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[6], out float lcv7))
+                {
+                    scc.detectionTime = lcv7;
+                } else
+                {
+                    Debug.LogError("Argument[6] for " + data.prefabName + " failed to parse");
+                }
+
+                if (float.TryParse(data.Arguments[7], out float lcv8))
+                {
+                    scc.hackRadius = lcv8;
+                } else
+                {
+                    Debug.LogError("Argument[7] for " + data.prefabName + " failed to parse");
                 }
             }
         }
@@ -542,7 +587,7 @@ public class GameLevelManager : MonoBehaviour
     }
 
     public void LoadGameLevel(string levelName)
-    {
+    {   
         bool inEditor = Application.isPlaying;
         IsLoadingLevel = true;
         if (!inEditor && PlayerManager.Instance != null)
@@ -583,8 +628,7 @@ public class GameLevelManager : MonoBehaviour
 
         Player1.transform.position = new Vector3(found.StartData.P1Start.x, found.StartData.P1Start.y, 0);
         Player2.transform.position = new Vector3(found.StartData.P2Start.x, found.StartData.P2Start.y, 0);
-        Debug.Log($"p1 active {found.StartData.P1Active}");
-        Debug.Log($"p2 active {found.StartData.P2Active}");
+        
        
         currentLevel.StartData = found.StartData;
         
@@ -782,14 +826,17 @@ public class GameLevelManager : MonoBehaviour
         {
             case ToLevel.Tutorial:
                 LoadGameLevel("Tutorial");
+                MoneySystem.Instance.levelStartMoney = 100;
                 break;
 
             case ToLevel.Level1:
                 LoadGameLevel("Level 1");
+                MoneySystem.Instance.levelStartMoney = 1000;
                 break;
 
             case ToLevel.Level2:
                 LoadGameLevel("Level 2");
+                MoneySystem.Instance.levelStartMoney = 10000;
                 break;
 
             case ToLevel.Level3:

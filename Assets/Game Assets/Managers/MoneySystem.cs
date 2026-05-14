@@ -10,12 +10,22 @@ public enum ToLevel
 	Level4
 };
 
+public enum LevelMoney
+{
+  Tutorial,
+  Level1,
+  Level2,
+  Level3
+};
+
 public class MoneySystem : MonoBehaviour
 {
   public static MoneySystem Instance;
 
   // the value of the target item for this level, set per level
   public float levelStartMoney = 200000f;
+  public float randomLossPercentMin = 0.005f; // 0.5%
+  public float randomLossPercentMax = 0.02f;   // 2%
 
   // percentage of starting money deducted per hit, set to 15%
   public float penaltyPercent = 0.15f;
@@ -35,18 +45,23 @@ public class MoneySystem : MonoBehaviour
   }
 
   // deducts a percentage of starting money on hit
-  public void TakeDamage()
-  {
-    float penalty = levelStartMoney * penaltyPercent;
-    CurrentMoney -= penalty;
-    Debug.Log($"Hit. Money remaining: {CurrentMoney}");
+  	public void TakeDamage()
+	{
+		float basePenalty = levelStartMoney * penaltyPercent;
 
-    if (CurrentMoney <= 0)
-    {
-      CurrentMoney = 0;
-      GameOver();
-    }
-  }
+		float randomPenalty = levelStartMoney * Random.Range(randomLossPercentMin, randomLossPercentMax);
+
+		float totalLoss = basePenalty + randomPenalty;
+
+		CurrentMoney = Mathf.Max(0f, CurrentMoney - totalLoss);
+
+		Debug.Log($"Hit. Lost {totalLoss}, remaining {CurrentMoney}");
+
+		if (CurrentMoney <= 0f)
+		{
+			GameOver();
+		}
+	}
 
   // called when player escapes successfully, adds remaining money to total
   public void LevelComplete()
@@ -63,7 +78,8 @@ public class MoneySystem : MonoBehaviour
   public void ResetLevel()
   {
     CurrentMoney = levelStartMoney;
-    GameLevelManager.Instance.LoadGameLevel(GameLevelManager.Instance.currentLevel.name);
+	//Do a Transition instead then reload
+    //GameLevelManager.Instance.LoadGameLevel(GameLevelManager.Instance.currentLevel.name);
   }
 
   // hook into scene transition later
