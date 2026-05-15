@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using HighScore;
 
 
 public class EndscreenTextHandler : MonoBehaviour
@@ -16,6 +16,7 @@ public class EndscreenTextHandler : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        HS.Init(this, "Thick as Thieves");
     }
 
     public void SetAdvanceFalse()
@@ -41,12 +42,15 @@ public class EndscreenTextHandler : MonoBehaviour
 
     public void SubmitScore()
     {
-        name = Input.GetComponent<NameInput>().name;
+        name = Input.GetComponent<NameInput>().playerName;
         if (MoneySystem.Instance)
         {
             score = (int)MoneySystem.Instance.TotalMoney;
         }
+        score = 100000;
         //Submit Score to server here
+        HS.SubmitHighScore(this, name, score);
+
 
 
         

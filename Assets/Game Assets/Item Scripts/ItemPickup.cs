@@ -36,7 +36,7 @@ public class ItemPickup : MonoBehaviour
 			if (PlayerManager.Instance.interact.WasPressedThisFrame() && activePlayer.characterActive)
 			Drop(activePlayer);
 		}
-		else if (playerInRange && activePlayer.heldItem == null && CanPickUp(active))
+		else if (playerInRange && activePlayer.heldItem == null && CanPickUp(active) && playerInRangeType == PlayerManager.Instance.ActivePlayer)
 		{
 			if (PlayerManager.Instance.interact.WasPressedThisFrame() && activePlayer.characterActive)
 			PickUp(activePlayer);
