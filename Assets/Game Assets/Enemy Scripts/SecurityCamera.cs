@@ -27,8 +27,6 @@ public class SecurityCamera : MonoBehaviour
     private enum CameraState { Surveying, Detecting, Alerted, Hacked }
     private CameraState state = CameraState.Surveying;
 
-	private int PlayerInRange = 0;
-
     private float detectionTimer;
     private float damageTimer;
 

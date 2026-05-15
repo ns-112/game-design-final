@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using HighScore;
 
-
+//ToDo make this not an animation so that it can have more text added to it
 public class EndscreenTextHandler : MonoBehaviour
 {
     private Animator animator;
@@ -47,7 +47,6 @@ public class EndscreenTextHandler : MonoBehaviour
         {
             score = (int)MoneySystem.Instance.TotalMoney;
         }
-        score = 100000;
         //Submit Score to server here
         HS.SubmitHighScore(this, name, score);
 
