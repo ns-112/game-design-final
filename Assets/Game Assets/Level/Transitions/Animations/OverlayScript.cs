@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OverlayScript : MonoBehaviour
 {
@@ -27,5 +28,10 @@ public class OverlayScript : MonoBehaviour
     public void OnTransitionExitComplete()
     {
         GameLevelManager.Instance.CurrentTransitionState = TransitionState.ReadyToEnter;
+    }
+
+    public void OnGameOverFinished()
+    {
+        SceneManager.LoadScene(2);
     }
 }

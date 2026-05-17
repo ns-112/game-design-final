@@ -102,7 +102,7 @@ public class BasicPlayer : MonoBehaviour
             } 
         }
 
-        if (transform.position.y < -30)
+        if (transform.position.y < -100)
         {
             transform.position = startPos;
         }

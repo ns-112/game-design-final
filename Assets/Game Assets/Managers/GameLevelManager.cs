@@ -677,7 +677,7 @@ public class GameLevelManager : MonoBehaviour
 
     [Header("Transition")]
     public GameObject TransitionPanel;
-    private Animator TransitionPanelAnimator;
+    public Animator TransitionPanelAnimator;
     public GameObject LabelPrefab;
     public List<GameObject> ActiveLabels = new();
     public TransitionState CurrentTransitionState = TransitionState.ReadyToEnter;
