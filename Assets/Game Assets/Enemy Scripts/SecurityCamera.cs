@@ -3,29 +3,26 @@ using UnityEngine;
 
 public class SecurityCamera : MonoBehaviour
 {
-    [Header("Detection Cone")]
-	public float detectionRange = 5f;
-	public float startAngle = -45f;
-	public float endAngle = 45f;
+	  public float detectionRange = 5f;
+	  public float startAngle = -45f;
+	  public float endAngle = 45f;
     public float detectionTime = 4f;
 
-	[Header("Hack Zone")]
-	public float hackRadius = 2f;
+	  public float hackRadius = 2f;
 
-    [Header("Enemies")]
     public GameObject enemyPrefab;
     public int enemySpawnCount = 2;
     public float enemySpawnRadius = 3f;
     public float spawnInterval = 5f;
 
-    [Header("Damage")]
     public float damageInterval = 1f;
 
-	[Header("Line of Sight")]
-	public LayerMask obstacleMask;
+	  public LayerMask obstacleMask;
 
     private enum CameraState { Surveying, Detecting, Alerted, Hacked }
     private CameraState state = CameraState.Surveying;
+
+	  private int PlayerInRange = 0;
 
     private float detectionTimer;
     private float damageTimer;
