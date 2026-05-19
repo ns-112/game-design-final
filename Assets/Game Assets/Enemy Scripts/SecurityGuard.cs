@@ -63,12 +63,15 @@ public class SecurityGuard : MonoBehaviour
       case GuardState.KnockedOut:
         break;
     }
+    Debug.Log($"pos={transform.position} vel={rb.linearVelocity}");
   }
 
   // walks between patrol point A and B, pausing at each end
   void Patrol()
   {
     if (isPausing || currentTarget == null) return;
+    Debug.Log($"Moving toward {currentTarget.name} vel={rb.linearVelocity}");
+  
 
     Vector2 direction = (currentTarget.position - transform.position).normalized;
     rb.linearVelocity = new Vector2(direction.x * patrolSpeed, rb.linearVelocity.y);
