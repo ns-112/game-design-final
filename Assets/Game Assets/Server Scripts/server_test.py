@@ -4,7 +4,7 @@ Basic script to send scores to the server
 
 import requests
 
-GAME_NAME = 'forbidden access'
+GAME_NAME = 'thick as thieves'
 GAME_KEY = None
 
 
@@ -24,7 +24,7 @@ def init():
     if (req.status_code == 200):
         GAME_KEY = req.text
 
-def submit_score(score: int, name: str):
+def post_score(score: int, name: str):
     global GAME_KEY
 
     if (GAME_KEY is None):
@@ -54,6 +54,6 @@ def reset_scores():
     req = requests.post(url, data=payload)
 
     print(req.status_code, req.text)
-
+init()
 reset_scores()
-
+post_score(1, 'john test')
