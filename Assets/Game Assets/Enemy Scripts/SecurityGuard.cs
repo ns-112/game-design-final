@@ -24,10 +24,12 @@ public class SecurityGuard : MonoBehaviour
   // how long guard pauses at each patrol point
   public float patrolPauseDuration = 1.5f;
 
-  private enum GuardState { Patrolling, Suspicious, Chasing, KnockedOut }
+  public enum GuardState { Patrolling, Suspicious, Chasing, KnockedOut }
+  public GuardState GetState() => state;
   private GuardState state = GuardState.Patrolling;
 
   private Rigidbody2D rb;
+  private SpriteRenderer sr;
   private Transform currentTarget;
   private float suspicionTimer = 0f;
   private bool isPausing = false;
@@ -35,6 +37,7 @@ public class SecurityGuard : MonoBehaviour
   void Start()
   {
     rb = GetComponent<Rigidbody2D>();
+    sr = GetComponent<SpriteRenderer>();
 
     if (patrolPointA != null)
       currentTarget = patrolPointA;
@@ -58,7 +61,6 @@ public class SecurityGuard : MonoBehaviour
         break;
 
       case GuardState.KnockedOut:
-        // handled by coroutine
         break;
     }
   }
@@ -70,12 +72,6 @@ public class SecurityGuard : MonoBehaviour
 
     Vector2 direction = (currentTarget.position - transform.position).normalized;
     rb.linearVelocity = new Vector2(direction.x * patrolSpeed, rb.linearVelocity.y);
-
-    // flip sprite direction based on movement
-    if (direction.x > 0)
-      transform.localScale = new Vector3(1, 1, 1);
-    else if (direction.x < 0)
-      transform.localScale = new Vector3(-1, 1, 1);
 
     // close enough to patrol point, switch to the other one
     if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f)
@@ -105,14 +101,13 @@ public class SecurityGuard : MonoBehaviour
 
       if (distToPlayer > visionRange) continue;
 
-      // check if player is within the vision angle
-      float angle = Vector2.Angle(transform.right * transform.localScale.x, directionToPlayer);
+      float facingDir = sr.flipX ? -1f : 1f;
+      float angle = Vector2.Angle(transform.right * facingDir, directionToPlayer);
       if (angle <= visionAngle / 2f)
       {
         state = GuardState.Suspicious;
         suspicionTimer = 0f;
         rb.linearVelocity = Vector2.zero;
-        Debug.Log("Guard: Player spotted, suspicious");
         return;
       }
     }
@@ -133,7 +128,8 @@ public class SecurityGuard : MonoBehaviour
 
       if (distToPlayer > visionRange) continue;
 
-      float angle = Vector2.Angle(transform.right * transform.localScale.x, directionToPlayer);
+      float facingDir = sr.flipX ? -1f : 1f;
+      float angle = Vector2.Angle(transform.right * facingDir, directionToPlayer);
       if (angle <= visionAngle / 2f)
       {
         playerInCone = true;
@@ -141,20 +137,15 @@ public class SecurityGuard : MonoBehaviour
       }
     }
 
-    // player left the cone before timer finished
     if (!playerInCone)
     {
       state = GuardState.Patrolling;
       suspicionTimer = 0f;
-      Debug.Log("Guard: Lost sight, patrolling.");
       return;
     }
 
     if (suspicionTimer >= suspicionTime)
-    {
       state = GuardState.Chasing;
-      Debug.Log("Guard: chasing");
-    }
   }
 
   // chases the active player
@@ -168,15 +159,12 @@ public class SecurityGuard : MonoBehaviour
     {
       state = GuardState.Patrolling;
       rb.linearVelocity = Vector2.zero;
-      Debug.Log("Guard: Lost the player, back to patrolling");
       return;
     }
 
-    // get the left and right boundary from patrol points
     float leftBound = Mathf.Min(patrolPointA.position.x, patrolPointB.position.x);
     float rightBound = Mathf.Max(patrolPointA.position.x, patrolPointB.position.x);
 
-    // stop if guard would move past either boundary
     if (transform.position.x <= leftBound && direction.x < 0)
     {
       rb.linearVelocity = Vector2.zero;
@@ -190,11 +178,6 @@ public class SecurityGuard : MonoBehaviour
     }
 
     rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
-
-    if (direction.x > 0)
-      transform.localScale = new Vector3(1, 1, 1);
-    else if (direction.x < 0)
-      transform.localScale = new Vector3(-1, 1, 1);
   }
 
   // called by MeleeAttack.cs when heavy player punches the guard
@@ -209,10 +192,7 @@ public class SecurityGuard : MonoBehaviour
   {
     state = GuardState.KnockedOut;
     rb.linearVelocity = Vector2.zero;
-    Debug.Log("Guard: Knocked out");
     yield return new WaitForSeconds(knockoutDuration);
     state = GuardState.Patrolling;
-    Debug.Log("Guard: Back on patrol");
   }
-
 }

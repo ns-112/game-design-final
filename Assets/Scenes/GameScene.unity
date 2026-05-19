@@ -600,7 +600,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7, y: 0.1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &211125703
 MonoBehaviour:
@@ -1849,6 +1849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55c1b8d307d8f34c808d4c2a6175329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeavyAnimator
+  spriteRoot: {fileID: 2128744338}
   spriteRoot: {fileID: 0}
 --- !u!114 &724770089
 MonoBehaviour:
@@ -2106,6 +2107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0a819312432b2428b943bc7c980b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeakAnimator
+  spriteRoot: {fileID: 2102300096}
   spriteRoot: {fileID: 0}
 --- !u!114 &886904277
 MonoBehaviour:
@@ -21097,7 +21099,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1756884807
 MonoBehaviour:
@@ -21279,7 +21281,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7, y: 0.1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2018482028
 MonoBehaviour:

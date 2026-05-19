@@ -22,10 +22,12 @@ public class GuardDog : MonoBehaviour
   // damage dealt to player on contact
   public float damage = 10f;
 
+  public DogState GetState() => state;
+
   private Vector3 spawnPoint;
   private Rigidbody2D rb;
 
-  private enum DogState { Patrolling, Chasing, BackingOff, KnockedOut }
+  public enum DogState { Patrolling, Chasing, BackingOff, KnockedOut }
   private DogState state = DogState.Patrolling;
 
   // tracks which direction the dog is patrolling
@@ -54,12 +56,13 @@ public class GuardDog : MonoBehaviour
       case DogState.KnockedOut:
         break;
     }
+    Debug.Log($"pos={transform.position} vel={rb.linearVelocity} state={state}");
   }
 
   // walks left and right within patrolRadius from spawn point
   void Patrol()
   {
-    transform.Translate(Vector2.right * patrolDirection * patrolSpeed * Time.deltaTime);
+    rb.linearVelocity = new Vector2(patrolDirection * patrolSpeed, rb.linearVelocity.y);
 
     if (transform.position.x >= spawnPoint.x + patrolRadius)
       patrolDirection = -1f;
