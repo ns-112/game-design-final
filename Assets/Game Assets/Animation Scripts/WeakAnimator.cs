@@ -10,6 +10,7 @@ public class WeakAnimator : MonoBehaviour
 
   void Start()
   {
+    spriteRoot = GetComponent<Transform>();
     animator = GetComponentInChildren<Animator>();
     rb = GetComponent<Rigidbody2D>();
     originalScale = spriteRoot.localScale;

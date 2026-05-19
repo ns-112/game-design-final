@@ -11,6 +11,7 @@ public class HeavyAnimator : MonoBehaviour
   {
     animator = GetComponentInChildren<Animator>();
     rb = GetComponent<Rigidbody2D>();
+    spriteRoot = GetComponent<Transform>();
   }
 
   void Update()

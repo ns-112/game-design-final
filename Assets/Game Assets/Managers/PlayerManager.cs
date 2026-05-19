@@ -126,6 +126,7 @@ public class PlayerManager : MonoBehaviour
             switch_player = actionMap.FindAction("SwitchCharacter");
 
             actionMap.Enable();
+            inputActions.Enable();
 
             Players = new Dictionary<PlayerType, Player>
             {

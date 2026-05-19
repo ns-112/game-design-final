@@ -794,8 +794,8 @@ Transform:
   m_GameObject: {fileID: 692784496}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -327, z: 1}
-  m_LocalScale: {x: 1.06, y: 1.06, z: 1.06}
+  m_LocalPosition: {x: 0, y: -190, z: 1}
+  m_LocalScale: {x: 0.625, y: 0.625, z: 0.625}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 775807401}
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1.06
+  m_ScaleFactor: 3
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -1405,7 +1405,7 @@ Canvas:
   m_GameObject: {fileID: 1019773184}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1381881007}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

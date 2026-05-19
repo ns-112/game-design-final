@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
 
 [InitializeOnLoad]
 public static class DebugLabels
@@ -23,3 +24,4 @@ public static class DebugLabels
         GUI.Label(r, text);
     }
 }
+#endif

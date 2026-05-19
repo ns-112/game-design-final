@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using TMPro;
 using System.Collections;
-using UnityEditorInternal;
 
 public enum TransitionState
 {
@@ -95,20 +94,17 @@ public class GameLevelManager : MonoBehaviour
     {
         LevelDict = new Dictionary<string, GameLevel>();
 
-        string path = Path.Combine(Application.dataPath, "Game Assets/Resources/Levels");
+        TextAsset[] files = Resources.LoadAll<TextAsset>("Levels");
 
-        if (!Directory.Exists(path))
+        if (files == null || files.Length == 0)
         {
-            Debug.LogWarning("Level folder does not exist: " + path);
+            Debug.LogWarning("No levels found in Resources/Levels");
             return;
         }
 
-        string[] files = Directory.GetFiles(path, "*.json");
-
-        foreach (string file in files)
+        foreach (TextAsset file in files)
         {
-            string json = File.ReadAllText(file);
-            GameLevel level = GameLevel.DeserializeLevel(json);
+            GameLevel level = GameLevel.DeserializeLevel(file.text);
 
             if (level != null)
             {
@@ -317,12 +313,14 @@ public class GameLevelManager : MonoBehaviour
         
         string json = level.SerializeLevel();
 
-        string folder = Path.Combine(Application.dataPath, "Game Assets/Resources/Levels");
+        string folder = Path.Combine(Application.persistentDataPath, "Levels");
+
         Directory.CreateDirectory(folder);
 
         string path = Path.Combine(folder, name + ".json");
 
         File.WriteAllText(path, json);
+
         Debug.Log("Saved level: " + path);
     }
 
@@ -857,7 +855,7 @@ public class GameLevelManager : MonoBehaviour
 
 
 
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(GameLevelManager))]
 public class GameLevelManagerEditor : Editor
 {
@@ -940,3 +938,4 @@ public class GameLevelManagerEditor : Editor
     GUI.enabled = true;
     }
 }
+#endif
