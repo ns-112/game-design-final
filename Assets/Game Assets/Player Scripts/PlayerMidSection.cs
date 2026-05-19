@@ -9,12 +9,13 @@ public class PlayerMidSection : MonoBehaviour
     {
         foreach (Transform child in transform.parent)
         {
-            Physics2D.IgnoreCollision(
-                GetComponent<Collider2D>(),
-                child.GetComponent<Collider2D>()
-            );
+            Collider2D childCol = child.GetComponent<Collider2D>();
+            if (childCol != null)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), childCol);
+            }
         }
-        Physics2D.IgnoreCollision(
+    Physics2D.IgnoreCollision(
             GetComponent<Collider2D>(),
             transform.parent.GetComponent<Collider2D>()
         );
