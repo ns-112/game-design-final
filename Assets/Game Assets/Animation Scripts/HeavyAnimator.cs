@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HeavyAnimator : MonoBehaviour
 {
+  [SerializeField] private Transform spriteRoot;
+
   private Animator animator;
   private Rigidbody2D rb;
 
@@ -21,6 +23,11 @@ public class HeavyAnimator : MonoBehaviour
 
     animator.SetBool("isRunning", isRunning);
     animator.SetBool("isCarrying", isCarrying);
+
+    if (rb.linearVelocity.x > 0.1f)
+      spriteRoot.localScale = new Vector3(1, 1, 1);
+    else if (rb.linearVelocity.x < -0.1f)
+      spriteRoot.localScale = new Vector3(-1, 1, 1);
   }
 
   public void TriggerHurt()

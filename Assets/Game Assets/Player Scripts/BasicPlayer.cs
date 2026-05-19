@@ -44,6 +44,7 @@ public class BasicPlayer : MonoBehaviour
     {
         if (self.canJump)
         {
+            GetComponent<PlayerSoundController>().PlayJumpSound();
             self.canJump = false;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * self.properties.jumpHeight, ForceMode2D.Impulse);
