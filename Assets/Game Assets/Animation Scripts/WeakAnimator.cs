@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeavyAnimator : MonoBehaviour
+public class WeakAnimator : MonoBehaviour
 {
   private Animator animator;
   private Rigidbody2D rb;
@@ -13,10 +13,9 @@ public class HeavyAnimator : MonoBehaviour
 
   void Update()
   {
-    Player player = PlayerManager.Instance.Players[PlayerType.Player1];
+    Player player = PlayerManager.Instance.Players[PlayerType.Player2];
 
-    float xVelocity = rb.linearVelocity.x;
-    bool isRunning = Mathf.Abs(xVelocity) > 0.1f;
+    bool isRunning = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
     bool isCarrying = player.heldItem != null;
 
     animator.SetBool("isRunning", isRunning);
@@ -28,8 +27,8 @@ public class HeavyAnimator : MonoBehaviour
     animator.SetTrigger("isHurt");
   }
 
-  public void TriggerKick()
+  public void TriggerInteract()
   {
-    animator.SetTrigger("isKicking");
+    animator.SetTrigger("isInteracting");
   }
 }
