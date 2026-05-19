@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class WeakAnimator : MonoBehaviour
 {
+  [SerializeField] private Transform spriteRoot;
+
   private Animator animator;
   private Rigidbody2D rb;
+  private Vector3 originalScale;
 
   void Start()
   {
     animator = GetComponentInChildren<Animator>();
     rb = GetComponent<Rigidbody2D>();
+    originalScale = spriteRoot.localScale;
   }
 
   void Update()
@@ -20,6 +24,11 @@ public class WeakAnimator : MonoBehaviour
 
     animator.SetBool("isRunning", isRunning);
     animator.SetBool("isCarrying", isCarrying);
+
+    if (rb.linearVelocity.x > 0.1f)
+      spriteRoot.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+    else if (rb.linearVelocity.x < -0.1f)
+      spriteRoot.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
   }
 
   public void TriggerHurt()
